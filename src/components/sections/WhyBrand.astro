@@ -1,0 +1,96 @@
+---
+/**
+ * Diferenciais — fase "autoridade" da biblioteca B2, com o layout do mockup de
+ * 29/10/2026 nesta LP (desvio registrado em docs/BRIEFING.md). `npm run compose`
+ * sobrescreve este arquivo com o da biblioteca: guarde-o antes de recompor.
+ *
+ * Frase de autoridade, texto e CTA ao lado de uma foto em card; abaixo, os 5
+ * diferenciais num painel navy — o bloco navy da segunda metade da página.
+ */
+import { Image } from 'astro:assets'
+import Section from '@components/Section.astro'
+import Icon from '@components/Icon.astro'
+import type { SectionProps } from '@lib/layout'
+import { cta } from '@data/content'
+import { why } from '@data/sections/diferenciais'
+
+type Props = SectionProps
+
+const { tone, rhythm } = Astro.props
+const [firstLine, ...otherLines] = why.titleLines
+---
+
+<Section id="diferenciais" tone={tone} rhythm={rhythm}>
+  <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.1fr)] lg:gap-14">
+    <div>
+      <span class="block h-[3px] w-12 rounded-full bg-accent-orange" aria-hidden="true"></span>
+      <span class="mt-4 block font-sans text-[12px] font-semibold tracking-[0.2em] text-ink-soft uppercase sm:text-[13px]">
+        {why.eyebrow}
+      </span>
+
+      <h2 class="mt-4 font-display text-[2.4rem] leading-[1.04] font-extrabold tracking-[-0.025em] text-primary-dark-900 sm:text-[3rem] lg:text-[2.7rem] xl:text-[3.3rem]">
+        <span class="block">{firstLine}</span>
+        <span class="block text-accent-orange">{otherLines.join(' ')}</span>
+      </h2>
+
+      <p class="mt-6 max-w-[32rem] font-sans text-[16px] leading-relaxed text-ink-soft sm:text-[17px] lg:text-[18px]">
+        {why.text}
+      </p>
+
+      <button
+        type="button"
+        data-cta="diferenciais-cta"
+        class="btn-slave-whats mt-8 inline-flex items-center gap-3 rounded-lg bg-accent-orange px-10 py-4 font-sans text-[16px] font-bold text-neutral-light shadow-[0_16px_30px_-16px_rgba(77,127,34,0.9)] transition-colors duration-200 hover:bg-accent-orange-dark sm:px-14 sm:text-[17px]"
+      >
+        {cta.primary}
+        <Icon name="arrow-right" class="size-[18px] shrink-0" />
+      </button>
+
+      <p class="mt-7 flex max-w-[24rem] items-center gap-4 font-sans text-[15px] leading-snug text-ink-soft">
+        <Icon name="chat" class="size-8 shrink-0 text-primary-dark-900" />
+        {why.help}
+      </p>
+    </div>
+
+    <Image
+      src={why.scene.src}
+      alt={why.scene.alt}
+      format="webp"
+      width={1100}
+      loading="lazy"
+      decoding="async"
+      class="aspect-[1.55] w-full rounded-[1.5rem] object-cover shadow-[0_34px_60px_-34px_rgba(10,29,77,0.55)] lg:rounded-[1.75rem]"
+    />
+  </div>
+
+  {/* Painel navy com os 5 diferenciais */}
+  <ul
+    class="why-panel mt-8 grid gap-y-7 rounded-[1.5rem] px-6 py-8 sm:grid-cols-2 sm:gap-x-8 sm:px-10 lg:grid-cols-5 lg:gap-x-0 lg:px-8 lg:py-9"
+    aria-label={`${why.eyebrow}`}
+  >
+    {why.reasons.map((reason) => (
+      <li class="lg:border-l lg:border-white/15 lg:px-6 lg:first:border-l-0 lg:first:pl-0 lg:last:pr-0">
+        <div class="flex items-center gap-4">
+          <Icon name={reason.icon} class="why-icon size-10 shrink-0" />
+          <h3 class="font-display text-[17px] leading-snug font-extrabold text-neutral-light">
+            {reason.title}
+          </h3>
+        </div>
+        <p class="mt-4 font-sans text-[15px] leading-relaxed text-neutral-light/75">
+          {reason.description}
+        </p>
+      </li>
+    ))}
+  </ul>
+</Section>
+
+<style>
+  .why-panel {
+    background: linear-gradient(135deg, #0f2a57 0%, var(--color-primary-dark-900) 100%);
+  }
+
+  /* Verde da marca (#7ba249) nos ícones sobre navy: decorativos, sem texto branco em cima. */
+  .why-panel :global(.why-icon) {
+    color: #7ba249;
+  }
+</style>

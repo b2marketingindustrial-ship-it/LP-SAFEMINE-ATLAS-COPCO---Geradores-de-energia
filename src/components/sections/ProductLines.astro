@@ -1,0 +1,145 @@
+---
+/**
+ * Linhas de produto — fase "oferta" da biblioteca B2, com o layout do mockup de
+ * 29/10/2026 nesta LP (desvio registrado em docs/BRIEFING.md). `npm run compose`
+ * sobrescreve este arquivo com o da biblioteca: guarde-o antes de recompor.
+ *
+ * Cabeçalho em duas colunas (título · texto), 4 cards claros com foto, potência e tensão
+ * lado a lado, motor e CTA de largura total; abaixo, a faixa "Não sabe qual gerador
+ * escolher?". `dark` fica nos dados só pelo contrato da biblioteca. As fotos são
+ * retangulares (o material não tem recorte), por isso preenchem a área com object-cover.
+ */
+import { Image } from 'astro:assets'
+import Section from '@components/Section.astro'
+import Icon from '@components/Icon.astro'
+import BrandCarousel from '@components/BrandCarousel.astro'
+import type { SectionProps } from '@lib/layout'
+import { cta } from '@data/content'
+import { productLines } from '@data/sections/linhas'
+
+type Props = SectionProps
+
+const { tone, rhythm } = Astro.props
+const lines = productLines.items
+const [titleStart, titleEnd = ''] = productLines.title.split(productLines.titleHighlight)
+const hasHighlight = productLines.title.includes(productLines.titleHighlight)
+---
+
+<Section id="linhas" tone={tone} rhythm={rhythm}>
+  <div class="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] xl:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
+    <div>
+      <span class="inline-flex items-center gap-4 font-sans text-[12px] font-semibold tracking-[0.18em] text-ink-soft uppercase sm:text-[13px]">
+        <span class="h-[3px] w-9 shrink-0 rounded-full bg-accent-orange" aria-hidden="true"></span>
+        {productLines.eyebrow}
+      </span>
+      <h2 class="mt-4 font-display text-[2rem] leading-[1.08] font-extrabold tracking-[-0.02em] text-primary-dark-900 sm:text-[2.5rem] lg:text-[2.35rem] xl:text-[2.9rem]">
+        {hasHighlight ? (
+          <Fragment>
+            {titleStart}
+            <span class="text-accent-orange lg:block">{productLines.titleHighlight}</span>
+            {titleEnd}
+          </Fragment>
+        ) : (
+          productLines.title
+        )}
+      </h2>
+    </div>
+
+    <p class="max-w-[30rem] font-sans text-[16px] leading-relaxed text-ink-soft sm:text-[17px] lg:pb-1.5 lg:text-[19px]">
+      {productLines.text}
+    </p>
+  </div>
+
+  <BrandCarousel />
+
+  {/* A partir de 1280px cada card é um subgrid de 7 linhas: título, descrição, potência/tensão e
+      motor ficam na mesma altura nos 4 cards, mesmo com descrições de tamanhos diferentes. */}
+  <ul class="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4 xl:gap-y-0">
+    {lines.map((line) => (
+      <li class="group flex flex-col rounded-2xl border border-primary-dark/10 bg-neutral-light p-5 shadow-[0_14px_34px_-24px_rgba(10,29,77,0.35)] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,29,77,0.45)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 xl:row-span-7 xl:grid xl:grid-rows-subgrid xl:gap-y-0">
+        <span class="self-start justify-self-start rounded-full bg-accent-orange/10 px-3.5 py-1.5 font-sans text-[11px] font-bold tracking-[0.16em] text-accent-orange uppercase">
+          {line.tag}
+        </span>
+
+        <div class="mt-3 h-44 overflow-hidden rounded-xl">
+          <Image
+            src={line.photo.src}
+            alt={line.photo.alt}
+            format="webp"
+            width={640}
+            loading="lazy"
+            decoding="async"
+            class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+          />
+        </div>
+
+        <h3 class="mt-4 font-display text-[25px] leading-tight font-extrabold text-primary-dark-900">
+          {line.title}
+        </h3>
+        <p class="mt-2 font-sans text-[15px] leading-snug text-ink-soft">{line.description}</p>
+
+        <dl class="mt-5 grid grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] border-b border-primary-dark/10 pb-4">
+          <div class="pr-2.5">
+            <dt class="font-sans text-[11px] font-semibold tracking-[0.14em] text-ink-soft uppercase">
+              {productLines.specLabels[0]}
+            </dt>
+            <dd class="mt-1 font-display text-[16px] font-extrabold tracking-[-0.01em] whitespace-nowrap text-primary-dark-900 xl:text-[17px]">
+              {line.features[0]}
+            </dd>
+          </div>
+          <div class="border-l border-primary-dark/15 pl-3.5">
+            <dt class="font-sans text-[11px] font-semibold tracking-[0.14em] text-ink-soft uppercase">
+              {productLines.specLabels[1]}
+            </dt>
+            <dd class="mt-1 font-display text-[16px] font-extrabold tracking-[-0.01em] whitespace-nowrap text-primary-dark-900 xl:text-[17px]">
+              {line.features[1]}
+            </dd>
+          </div>
+        </dl>
+
+        <p class="mt-4 flex items-center gap-3 font-sans text-[15px] text-ink">
+          <Icon name="engine" class="size-7 shrink-0 text-primary-dark-900" />
+          {line.features[2]}
+        </p>
+
+        {/* mt-auto alinha os botões na base quando os textos têm alturas diferentes */}
+        <div class="mt-auto pt-5">
+          <button
+            type="button"
+            data-cta={`linhas-${line.id}`}
+            class="btn-slave-whats flex w-full items-center justify-between gap-3 rounded-lg bg-accent-orange px-5 py-3.5 font-sans text-[15px] font-semibold text-neutral-light transition-colors duration-200 hover:bg-accent-orange-dark"
+          >
+            {cta.card}
+            <Icon name="arrow-right" class="size-[18px] shrink-0" />
+          </button>
+        </div>
+      </li>
+    ))}
+  </ul>
+
+  <div class="mt-6 flex flex-col gap-4 rounded-2xl bg-primary-dark/[0.05] px-6 py-5 sm:flex-row sm:items-center sm:justify-between lg:px-10">
+    <div class="flex items-center gap-5">
+      <Icon name="chat" class="size-10 shrink-0 text-primary-dark-900" />
+      <p class="font-sans text-[15px] leading-snug text-ink-soft sm:text-[16px]">
+        <strong class="block font-display text-[18px] font-extrabold text-primary-dark-900">
+          {productLines.help.title}
+        </strong>
+        {productLines.help.text}
+      </p>
+    </div>
+
+    <button
+      type="button"
+      data-cta="linhas-orientacao"
+      class="btn-slave-whats group inline-flex shrink-0 items-center gap-3 self-start font-sans text-[16px] font-semibold text-primary-dark-900 underline decoration-primary-dark-900/50 underline-offset-[6px] transition-colors duration-200 hover:text-accent-orange sm:self-auto"
+    >
+      {productLines.help.cta}
+      <Icon
+        name="arrow-right"
+        class="size-5 shrink-0 text-accent-orange transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+      />
+    </button>
+  </div>
+
+  <p class="mt-3 font-sans text-[12.5px] text-ink-soft/80 sm:text-right">{productLines.note}</p>
+</Section>

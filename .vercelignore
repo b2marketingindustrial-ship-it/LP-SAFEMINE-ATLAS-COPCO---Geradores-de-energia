@@ -1,0 +1,6 @@
+# Fora do upload da CLI da Vercel, que não segue o .gitignore.
+# Material bruto do cliente não sai desta máquina; dist/ é refeito no build.
+dist
+.astro
+docs/briefing-cliente
+docs/screens
