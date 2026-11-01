@@ -2,14 +2,8 @@
 import { getImage } from 'astro:assets'
 import logoImg from '../assets/LOGO.png'
 import '../styles/global.css'
-import {
-  site,
-  title as defaultTitle,
-  description as defaultDescription,
-  whatsapp,
-} from '../data/site'
+import { site, title as defaultTitle, description as defaultDescription } from '../data/site'
 import { hero } from '../data/content'
-import WhatsAppFloat from '../components/WhatsAppFloat.astro'
 
 interface Props {
   title?: string
@@ -87,7 +81,6 @@ const jsonLd = {
       Pular para o conteúdo
     </a>
     <slot />
-    {whatsapp && <WhatsAppFloat number={whatsapp} />}
 
     <script is:inline>
       // Parâmetros de depuração, usados pelos scripts de captura. Não fazem nada numa
