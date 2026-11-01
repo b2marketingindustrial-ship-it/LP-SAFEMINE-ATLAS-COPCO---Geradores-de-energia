@@ -14,6 +14,8 @@
   --color-primary-dark-900: #0a1d4d;
   --color-accent-orange: #4d7f22;
   --color-accent-orange-dark: #3f6a1b;
+  /* Verde original da marca: só para destaque de texto sobre fundo navy (hero). */
+  --color-accent-orange-light: #7ba249;
   --color-neutral-light: #ffffff;
   --color-neutral-gray-100: #f4f6fa;
   --color-neutral-gray-200: #a0a0a0;

@@ -16,14 +16,11 @@ import heroBg from '@assets/heroBg.png'
 
 /* ------------------------------------------------------------------ tipos */
 
-/** Linha da faixa "Encontre a linha" no pé do hero. Cada card é um CTA. */
-export interface HeroLine {
-  id: string
+/** Ponto da caixa de ícones do hero: `line1` e `line2` ficam sempre em duas linhas. */
+export interface HeroPoint {
   icon: IconName
-  title: string
-  /** Dado de destaque sob o título; mais de um item entra separado por divisória. */
-  spec: readonly string[]
-  description: string
+  line1: string
+  line2: string
 }
 
 export interface TrustItem {
@@ -40,8 +37,6 @@ export const cta = {
   secondary: 'Identifique seu gerador',
   card: 'Falar com especialista',
   whatsapp: 'Chamar no WhatsApp',
-  /** Link do hero que rola até a seção de linhas. Não é CTA de atendimento. */
-  findLine: 'Encontrar meu gerador',
 } as const
 
 /* ------------------------------------------------------------------ header */
@@ -66,59 +61,24 @@ export const hero = {
     src: heroBg,
     alt: 'Geradores Atlas Copco de quatro portes sobre terreno de mineração',
     /** Larguras geradas: as mesmas no <Picture> do Hero e no preload do Layout. */
-    widths: [480, 768, 1020],
-    sizes: '(min-width: 1024px) 46vw, 100vw',
+    widths: [640, 1024, 1536, 1981],
+    sizes: '(min-width: 1024px) 1700px, 100vw',
   },
-  help: {
-    title: 'Não sabe a potência exata?',
-    text: 'Descreva a operação. Nós indicamos o modelo.',
-  },
-  lines: {
-    title: 'Encontre o gerador para a sua demanda',
-    note: 'Potências, tensões e configurações dependem do modelo.',
-    items: [
-      {
-        id: 'qas-24-105',
-        icon: 'bolt',
-        title: 'QAS 24 a 105',
-        spec: ['24 a 101,8 kVA'],
-        description: 'Obras, frentes de serviço e operações remotas.',
-      },
-      {
-        id: 'qas-130-180',
-        icon: 'building',
-        title: 'QAS 130 e 180',
-        spec: ['Até 171,3 kVA'],
-        description: 'Plantas industriais e demandas maiores.',
-      },
-      {
-        id: 'qas-225-550',
-        icon: 'factory',
-        title: 'QAS 225 a 550',
-        spec: ['Até 550 kVA'],
-        description: 'Grandes cargas e operação em paralelo.',
-      },
-      {
-        id: 'qes-35-140',
-        icon: 'wrench',
-        title: 'QES 35 a 140',
-        spec: ['36 a 153 kVA'],
-        description: 'Custo competitivo e implantação rápida.',
-      },
-    ],
-  },
+  points: [
+    { icon: 'bolt', line1: 'Geradores QAS', line2: '24 a 550 kVA' },
+    { icon: 'wrench', line1: 'Geradores QES', line2: '36 a 153 kVA' },
+    { icon: 'clock', line1: 'Fonte principal,', line2: 'emergência ou temporária' },
+  ],
+  /** Aviso sob os botões: os dados acima variam por modelo e configuração. */
+  note: 'Potências, tensões e configurações dependem do modelo.',
 } as const satisfies {
   eyebrow: string
   title: string
   text: string
   highlight: string
   banner: Photo & { widths: readonly number[]; sizes: string }
-  help: { title: string; text: string }
-  lines: {
-    title: string
-    note: string
-    items: readonly [HeroLine, HeroLine, HeroLine, HeroLine]
-  }
+  points: readonly [HeroPoint, HeroPoint, HeroPoint]
+  note: string
 }
 
 /* ----------------------------------------------------------------- cotação */

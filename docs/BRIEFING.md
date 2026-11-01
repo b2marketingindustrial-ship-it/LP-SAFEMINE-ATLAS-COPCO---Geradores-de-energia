@@ -71,3 +71,9 @@ Algumas máquinas nas fotos trazem modelos fora da lista da campanha (QAS 500, Q
 ## Estado da entrega
 
 Pendências em `docs/FICHA-LP.md`. Na Vercel não há o plugin de atendimento: o formulário aparece como shortcode em texto e só o botão flutuante de WhatsApp funciona. Formulário e demais botões dependem da publicação no WordPress, pela branch `wp-build`, como na LP de compressores.
+
+## Desvios do padrão
+
+- **Header:** barra branca flutuante com a logo da Safe Mine, pedida pela B2 em 29/10/2026 com o mockup do topo. A assinatura do `check:lp` conhece essa estrutura.
+- **Hero:** sem desvio. O Hero da primeira versão (fundo claro, sem a coluna do chat) foi substituído em 01/11/2026 pelo da estrutura fixa 4.1.2: grid `1fr · 270px · 300px`, coluna 2 vazia, slot `shortcode` de 300px, foto de 1700px ancorada na borda do container. A faixa de prioridades e o cartão de ajuda do hero saíram; a nota ficou sob os botões. A foto foi reenquadrada em 1981×900, com o grupo em ~70% da largura.
+- **Paleta:** os véus do hero usam o azul `#0a1d4d` da marca no lugar do navy `#001830` do template. O token `accent-orange-light` (`#7ba249`) existe só para o destaque do H1 sobre o fundo escuro.

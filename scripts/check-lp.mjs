@@ -189,16 +189,18 @@ for (const f of astroFiles) {
 
 /* A8. Estrutura fixa: assinaturas do Header, Hero, Cotação e Footer ---------- */
 {
-  // Header e Hero desta LP seguem o mockup aprovado em 29/10/2026, não a estrutura
-  // fixa do padrão (desvio registrado em docs/BRIEFING.md). As assinaturas abaixo
-  // conferem a estrutura nova: barra branca flutuante, foto em card e faixa de linhas.
+  // O Header desta LP segue o mockup aprovado em 29/10/2026 (barra branca flutuante,
+  // desvio registrado em docs/BRIEFING.md). O Hero voltou à estrutura fixa 4.1.2.
   const expect = {
     'Header.astro': ['fixed inset-x-0 top-0 z-50', 'marca-safe-mine.png', 'data-cta="header-cta"'],
     'Hero.astro': [
+      'grid-template-columns: minmax(0, 1fr) 270px 300px',
+      'right: var(--page-edge)',
+      'width: 1700px',
+      'lg:w-[300px]',
+      '<slot name="shortcode">',
+      'data-hero-grid',
       'fetchpriority="high"',
-      'data-cta="hero-primary"',
-      'href="#linhas"',
-      'data-cta={`hero-linha-${line.id}`}',
     ],
     'QuoteForm.astro': [
       'id="cotacao"',
