@@ -1,91 +1,41 @@
 ---
 /**
- * Header desta LP — DESVIO da estrutura fixa (PROMPT-PADRAO-LP 4.1.1), pedido pela B2
- * em 29/10/2026 com o mockup do topo (registro em docs/BRIEFING.md).
- *
- * Barra branca flutuante e fixa: logo colorido, duas âncoras (Geradores, Aplicações)
- * e CTA verde. A sombra cresce quando a página rola (data-scrolled).
+ * ESTRUTURA FIXA (PROMPT-PADRAO-LP 4.1.1). Barra navy sticky, logo em placa branca
+ * "pendurada" (invade o hero), tagline central e CTA laranja. Sem menu e sem âncoras.
  */
 import { Image } from 'astro:assets'
-import Icon from './Icon.astro'
 import logo from '../assets/marca-safe-mine.png'
-import { site } from '../data/site'
 import { header, cta } from '../data/content'
 ---
 
-<header class="fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4 lg:pt-5" data-header>
-  <div class="mx-auto max-w-page px-3 sm:px-5 lg:px-8">
-    <div class="site-bar flex items-center justify-between gap-4 rounded-2xl border border-primary-dark/10 bg-neutral-light px-4 py-2.5 sm:px-6 sm:py-3 lg:px-7">
-      {/* 1. Logo */}
-      <a href="/" class="flex shrink-0 items-center" aria-label={site.brand}>
+<header class="sticky top-0 z-50 bg-primary-dark-900">
+  <div class="mx-auto flex max-w-page items-center justify-between gap-3 px-4 py-3 sm:gap-6 sm:px-6 lg:px-10">
+    <a href="/" class="flex shrink-0 items-center self-start">
+      <span class="header-plate -mt-3 -mb-10 flex items-center gap-3 rounded-b-xl bg-neutral-light px-3 pt-5 pb-5 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.55)] sm:gap-5 sm:px-6">
         <Image
           src={logo}
-          alt={site.brand}
+          alt="Safe Mine"
           width={420}
           format="webp"
           loading="eager"
           fetchpriority="low"
           decoding="async"
-          class="h-8 w-auto sm:h-10"
+          class="h-7 w-auto sm:h-12"
         />
-      </a>
+      </span>
+    </a>
 
-      {/* 2. Âncoras + CTA verde (rótulo curto no mobile) */}
-      <div class="flex items-center gap-8 lg:gap-12">
-        <nav class="hidden items-center gap-8 md:flex lg:gap-12" aria-label="Seções da página">
-          {header.nav.map((link) => (
-            <a
-              href={link.href}
-              data-cta={`header-${link.id}`}
-              class="font-sans text-[15px] font-medium text-ink transition-colors duration-200 hover:text-accent-orange"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
+    <span class="hidden flex-1 text-center font-display text-[15px] font-extrabold tracking-[0.14em] text-neutral-light uppercase sm:block lg:text-[17px]">
+      {header.tagline}
+    </span>
 
-        <button
-          type="button"
-          data-cta="header-cta"
-          class="btn-slave-whats inline-flex shrink-0 items-center gap-2.5 rounded-lg bg-accent-orange px-4 py-2.5 font-sans text-[13px] font-bold text-neutral-light shadow-[0_10px_22px_-12px_rgba(77,127,34,0.9)] transition-colors duration-200 hover:bg-accent-orange-dark sm:px-6 sm:py-3 sm:text-[15px]"
-        >
-          <span class="sm:hidden">{cta.primaryShort}</span>
-          <span class="hidden sm:inline">{cta.primary}</span>
-          <Icon name="arrow-right" class="hidden size-4 shrink-0 sm:block" />
-        </button>
-      </div>
-    </div>
+    <button
+      type="button"
+      data-cta="header-cta"
+      class="btn-slave-whats inline-flex shrink-0 items-center bg-accent-orange px-4 py-2 font-sans text-[11px] font-bold uppercase tracking-[0.04em] text-neutral-light transition-colors duration-200 hover:bg-accent-orange-dark sm:px-6 sm:py-2.5 sm:text-[13px] sm:tracking-[0.06em]"
+    >
+      <span class="sm:hidden">{cta.primaryShort}</span>
+      <span class="hidden sm:inline">{cta.primary}</span>
+    </button>
   </div>
 </header>
-
-<style>
-  .site-bar {
-    box-shadow: 0 12px 32px -20px rgb(10 29 77 / 0.35);
-    transition: box-shadow 300ms ease;
-  }
-
-  [data-header][data-scrolled] .site-bar {
-    box-shadow: 0 16px 40px -18px rgb(10 29 77 / 0.5);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .site-bar {
-      transition: none;
-    }
-  }
-</style>
-
-<style is:global>
-  /* O header é fixo: âncoras param abaixo dele. */
-  html {
-    scroll-padding-top: 6.5rem;
-  }
-</style>
-
-<script>
-  document.querySelectorAll<HTMLElement>('[data-header]').forEach((el) => {
-    const update = () => el.toggleAttribute('data-scrolled', window.scrollY > 24)
-    update()
-    window.addEventListener('scroll', update, { passive: true })
-  })
-</script>

@@ -42,11 +42,8 @@ export const cta = {
 /* ------------------------------------------------------------------ header */
 
 export const header = {
-  /** Âncoras da barra (desvio do padrão herdado da LP de compressores): rolam até as seções. */
-  nav: [
-    { id: 'geradores', label: 'Geradores', href: '#linhas' },
-    { id: 'aplicacoes', label: 'Aplicações', href: '#aplicacoes' },
-  ],
+  /** Tagline central da barra (estrutura fixa 4.1.1): o produto principal. */
+  tagline: 'Geradores de energia',
 } as const
 
 /* -------------------------------------------------------------------- hero */
