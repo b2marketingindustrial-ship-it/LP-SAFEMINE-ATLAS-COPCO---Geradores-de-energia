@@ -9,6 +9,7 @@
  * escolher?". `dark` fica nos dados só pelo contrato da biblioteca. As fotos são
  * retangulares (o material não tem recorte), por isso preenchem a área com object-cover.
  */
+import Button from '@components/Button.astro'
 import { Image } from 'astro:assets'
 import Section from '@components/Section.astro'
 import Icon from '@components/Icon.astro'
@@ -104,14 +105,9 @@ const hasHighlight = productLines.title.includes(productLines.titleHighlight)
 
         {/* mt-auto alinha os botões na base quando os textos têm alturas diferentes */}
         <div class="mt-auto pt-5">
-          <button
-            type="button"
-            data-cta={`linhas-${line.id}`}
-            class="btn-slave-whats flex w-full items-center justify-between gap-3 rounded-lg bg-accent-orange px-5 py-3.5 font-sans text-[15px] font-semibold text-neutral-light transition-colors duration-200 hover:bg-accent-orange-dark"
-          >
+          <Button cta={`linhas-${line.id}`} size="md" class="w-full">
             {cta.card}
-            <Icon name="arrow-right" class="size-[18px] shrink-0" />
-          </button>
+          </Button>
         </div>
       </li>
     ))}

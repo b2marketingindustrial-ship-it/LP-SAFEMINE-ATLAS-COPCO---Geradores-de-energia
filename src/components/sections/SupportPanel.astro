@@ -8,6 +8,7 @@
  * o bloco navy da primeira metade da página — e, à direita, os 6 dados em dois grupos:
  * o essencial e o "se souber" (`list.optionalFrom`).
  */
+import Button from '@components/Button.astro'
 import Section from '@components/Section.astro'
 import Icon from '@components/Icon.astro'
 import type { SectionProps } from '@lib/layout'
@@ -38,14 +39,9 @@ const optionals = supportPanel.items.slice(list.optionalFrom)
         {supportPanel.text}
       </p>
 
-      <button
-        type="button"
-        data-cta="identificar-cta"
-        class="btn-slave-whats mt-8 flex w-full max-w-[30rem] items-center justify-center gap-4 rounded-lg bg-accent-orange px-6 py-4 font-sans text-[17px] font-bold text-neutral-light shadow-[0_18px_34px_-18px_rgba(0,0,0,0.8)] transition-colors duration-200 hover:bg-accent-orange-dark sm:text-[19px]"
-      >
+      <Button cta="identificar-cta" size="lg" class="mt-8 w-full max-w-[30rem]">
         {supportPanel.ctaLabel}
-        <Icon name="arrow-right" class="size-5 shrink-0" />
-      </button>
+      </Button>
 
       <p class="mt-6 flex items-center gap-3 font-sans text-[14px] text-neutral-light/70 sm:text-[15px]">
         <Icon name="chat" class="size-6 shrink-0 text-neutral-light/85" />

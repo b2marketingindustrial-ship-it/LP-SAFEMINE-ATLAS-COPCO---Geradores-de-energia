@@ -7,6 +7,7 @@
  * Frase de autoridade, texto e CTA ao lado de uma foto em card; abaixo, os 5
  * diferenciais num painel navy — o bloco navy da segunda metade da página.
  */
+import Button from '@components/Button.astro'
 import { Image } from 'astro:assets'
 import Section from '@components/Section.astro'
 import Icon from '@components/Icon.astro'
@@ -37,14 +38,9 @@ const [firstLine, ...otherLines] = why.titleLines
         {why.text}
       </p>
 
-      <button
-        type="button"
-        data-cta="diferenciais-cta"
-        class="btn-slave-whats mt-8 inline-flex items-center gap-3 rounded-lg bg-accent-orange px-10 py-4 font-sans text-[16px] font-bold text-neutral-light shadow-[0_16px_30px_-16px_rgba(77,127,34,0.9)] transition-colors duration-200 hover:bg-accent-orange-dark sm:px-14 sm:text-[17px]"
-      >
+      <Button cta="diferenciais-cta" size="lg" class="mt-8">
         {cta.primary}
-        <Icon name="arrow-right" class="size-[18px] shrink-0" />
-      </button>
+      </Button>
 
       <p class="mt-7 flex max-w-[24rem] items-center gap-4 font-sans text-[15px] leading-snug text-ink-soft">
         <Icon name="chat" class="size-8 shrink-0 text-primary-dark-900" />

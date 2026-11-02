@@ -1,9 +1,11 @@
 ---
 /**
- * Botão de CTA do padrão B2.
+ * Botão de CTA do padrão B2. Fonte única do estilo de todo CTA da página.
  * - Sempre <button type="button"> com `btn-slave-whats`: o plugin de atendimento do WordPress captura o clique.
  * - `cta` é obrigatório e vira `data-cta` para rastreamento (convenção: `{secao}-{elemento}`).
- * - Cantos retos, ícone arrow-right à direita por padrão.
+ * - Cantos retos, texto em negrito, ícone arrow-right à direita por padrão.
+ * - `size`: `sm` (header, caixa-alta), `md` (cards e botões de apoio), `lg` (CTA de seção).
+ *   Mesmo raio, peso, transição e sem sombra em todos; só o tamanho muda.
  */
 import Icon from './Icon.astro'
 import type { IconName } from '../data/icons'
@@ -12,6 +14,7 @@ interface Props {
   /** Identificador de rastreamento, ex.: "hero-primary", "linhas-esferas". */
   cta: string
   variant?: 'primary' | 'outline-light' | 'outline-dark'
+  size?: 'sm' | 'md' | 'lg'
   type?: 'button' | 'submit'
   icon?: boolean
   iconName?: IconName
@@ -22,6 +25,7 @@ interface Props {
 const {
   cta,
   variant = 'primary',
+  size = 'md',
   type = 'button',
   icon = true,
   iconName = 'arrow-right',
@@ -30,23 +34,40 @@ const {
 } = Astro.props
 
 const base =
-  'inline-flex items-center justify-center gap-2.5 px-6 py-3.5 font-sans text-[15px] font-semibold transition-colors duration-200'
+  'inline-flex items-center justify-center border font-sans font-bold transition-colors duration-200'
+
+const sizes = {
+  sm: 'gap-2 px-4 py-2 text-[11px] tracking-[0.04em] uppercase sm:px-6 sm:py-2.5 sm:text-[13px] sm:tracking-[0.06em]',
+  md: 'gap-2 px-5 py-3 text-[14px]',
+  lg: 'gap-2.5 px-7 py-3.5 text-[15px] sm:text-[16px]',
+}
+
+const iconSizes = {
+  sm: 'size-4',
+  md: 'size-4',
+  lg: 'size-[18px]',
+}
 
 const variants = {
-  primary: 'bg-accent-orange text-neutral-light hover:bg-accent-orange-dark',
-  'outline-light': 'border border-neutral-light/35 text-neutral-light hover:bg-neutral-light/10',
-  'outline-dark': 'border border-ink/25 text-ink hover:bg-ink/5',
+  primary:
+    'border-accent-orange bg-accent-orange text-neutral-light hover:border-accent-orange-dark hover:bg-accent-orange-dark',
+  'outline-light': 'border-neutral-light/35 text-neutral-light hover:bg-neutral-light/10',
+  'outline-dark': 'border-ink/25 text-ink hover:bg-ink/5',
 }
 ---
 
 <button
   type={type}
   data-cta={cta}
-  class:list={['btn-slave-whats', base, variants[variant], className]}
+  class:list={['btn-slave-whats', base, sizes[size], variants[variant], className]}
 >
-  {icon && iconPosition === 'left' && <Icon name={iconName} class="size-4 shrink-0" />}
+  {icon && iconPosition === 'left' && (
+    <Icon name={iconName} class={`${iconSizes[size]} shrink-0`} />
+  )}
   <span>
     <slot />
   </span>
-  {icon && iconPosition === 'right' && <Icon name={iconName} class="size-4 shrink-0" />}
+  {icon && iconPosition === 'right' && (
+    <Icon name={iconName} class={`${iconSizes[size]} shrink-0`} />
+  )}
 </button>

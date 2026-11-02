@@ -7,6 +7,7 @@
  * formulário dentro de um card branco, título com o produto em verde, botão de WhatsApp
  * verde e os 3 selos com ícone maior e divisórias. Grid, ordem e ritmo são os do padrão.
  */
+import Button from './Button.astro'
 import Icon from './Icon.astro'
 import { quote, cta } from '../data/content'
 import { site } from '../data/site'
@@ -99,14 +100,15 @@ const hasHighlight = quote.title.includes(quote.titleHighlight)
           {quote.text}
         </p>
 
-        <button
-          type="button"
-          data-cta="cotacao-whatsapp"
-          class="btn-slave-whats mt-7 inline-flex items-center justify-center gap-4 rounded-xl bg-accent-orange px-9 py-4 font-sans text-[17px] font-bold text-neutral-light shadow-[0_16px_30px_-16px_rgba(77,127,34,0.9)] transition-colors duration-200 hover:bg-accent-orange-dark sm:text-[19px]"
+        <Button
+          cta="cotacao-whatsapp"
+          size="lg"
+          iconName="whatsapp"
+          iconPosition="left"
+          class="mt-7"
         >
-          <Icon name="whatsapp" class="size-7 shrink-0" />
           {cta.whatsapp}
-        </button>
+        </Button>
 
         <p class="mt-5 font-sans text-[15px] text-ink-soft sm:text-[16px]">{quote.help}</p>
 

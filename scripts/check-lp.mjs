@@ -191,7 +191,7 @@ for (const f of astroFiles) {
 {
   // Header e Hero seguem a estrutura fixa 4.1.1 e 4.1.2 (restaurados em 01/11/2026).
   const expect = {
-    'Header.astro': ['sticky top-0 z-50', 'bg-primary-dark-900', 'data-cta="header-cta"'],
+    'Header.astro': ['sticky top-0 z-50', 'bg-primary-dark-900', 'cta="header-cta"'],
     'Hero.astro': [
       'grid-template-columns: minmax(0, 1fr) 270px 300px',
       'right: var(--page-edge)',
@@ -205,7 +205,7 @@ for (const f of astroFiles) {
       'id="cotacao"',
       'lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]',
       'order-2 w-full lg:order-1',
-      'data-cta="cotacao-whatsapp"',
+      'cta="cotacao-whatsapp"',
     ],
     'Footer.astro': [
       'navy-premium border-t border-white/15',

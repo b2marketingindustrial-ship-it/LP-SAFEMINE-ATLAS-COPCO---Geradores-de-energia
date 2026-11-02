@@ -3,6 +3,7 @@
  * ESTRUTURA FIXA (PROMPT-PADRAO-LP 4.1.1). Barra navy sticky, logo em placa branca
  * "pendurada" (invade o hero), tagline central e CTA laranja. Sem menu e sem âncoras.
  */
+import Button from './Button.astro'
 import { Image } from 'astro:assets'
 import logo from '../assets/marca-safe-mine.png'
 import { header, cta } from '../data/content'
@@ -29,13 +30,9 @@ import { header, cta } from '../data/content'
       {header.tagline}
     </span>
 
-    <button
-      type="button"
-      data-cta="header-cta"
-      class="btn-slave-whats inline-flex shrink-0 items-center bg-accent-orange px-4 py-2 font-sans text-[11px] font-bold uppercase tracking-[0.04em] text-neutral-light transition-colors duration-200 hover:bg-accent-orange-dark sm:px-6 sm:py-2.5 sm:text-[13px] sm:tracking-[0.06em]"
-    >
+    <Button cta="header-cta" size="sm" icon={false} class="shrink-0">
       <span class="sm:hidden">{cta.primaryShort}</span>
       <span class="hidden sm:inline">{cta.primary}</span>
-    </button>
+    </Button>
   </div>
 </header>

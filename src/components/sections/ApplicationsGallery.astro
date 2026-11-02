@@ -7,6 +7,7 @@
  * Cabeçalho em duas colunas, 4 cards brancos com foto e "Cotar para esta aplicação" —
  * o card inteiro continua sendo o CTA — e a faixa "Sua aplicação não está aqui?".
  */
+import Button from '@components/Button.astro'
 import { Image } from 'astro:assets'
 import Section from '@components/Section.astro'
 import Icon from '@components/Icon.astro'
@@ -99,13 +100,8 @@ const hasHighlight = applications.title.includes(applications.titleHighlight)
       </p>
     </div>
 
-    <button
-      type="button"
-      data-cta="aplicacoes-outra"
-      class="btn-slave-whats inline-flex shrink-0 items-center justify-center gap-3 self-start rounded-xl bg-accent-orange px-7 py-4 font-sans text-[16px] font-bold text-neutral-light shadow-[0_14px_28px_-16px_rgba(77,127,34,0.9)] transition-colors duration-200 hover:bg-accent-orange-dark sm:self-auto sm:text-[17px]"
-    >
+    <Button cta="aplicacoes-outra" size="lg" class="shrink-0 self-start sm:self-auto">
       {cta.card}
-      <Icon name="arrow-right" class="size-5 shrink-0" />
-    </button>
+    </Button>
   </div>
 </Section>
