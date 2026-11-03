@@ -49,6 +49,7 @@ const bandMargins = BAND_MARGINS[rhythm] ?? '-my-16'
     ]}
   >
     <span class="app-mesh pointer-events-none absolute inset-0" aria-hidden="true"></span>
+    <span class="app-stage pointer-events-none absolute inset-0" aria-hidden="true"></span>
 
     <div class="relative mx-auto max-w-page px-6 lg:px-10">
       <div class="mx-auto max-w-4xl text-center">
@@ -179,6 +180,27 @@ const bandMargins = BAND_MARGINS[rhythm] ?? '-my-16'
 </Section>
 
 <style>
+  /* Luz da faixa: spot central sobre o título, brilho azul no canto de baixo à direita e o
+     verde da marca subindo pela esquerda (kit navy-premium, global.css). */
+  .app-band {
+    --navy-key-x: 50%;
+    --navy-key-y: -14%;
+    --navy-fill-x: 98%;
+    --navy-fill-y: 92%;
+    --navy-ember-x: -2%;
+    --navy-ember-y: 40%;
+  }
+
+  /* Luz de palco atrás da fileira de cards: eles parecem flutuar sobre um ponto iluminado. */
+  .app-stage {
+    background: radial-gradient(
+      ellipse 50% 38% at 50% 62%,
+      rgb(47 107 255 / 0.32) 0%,
+      rgb(47 107 255 / 0.1) 45%,
+      transparent 72%
+    );
+  }
+
   /* Malha de pontos clara, esmaecida no meio para não disputar com os cards. */
   .app-mesh {
     background-image: radial-gradient(circle, rgb(255 255 255 / 0.1) 1px, transparent 1.2px);

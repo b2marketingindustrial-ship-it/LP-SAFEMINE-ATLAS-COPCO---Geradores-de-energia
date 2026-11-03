@@ -32,7 +32,7 @@ const groups = [
 <Section id="identificar" tone={tone} rhythm={rhythm}>
   <div class="grid overflow-hidden rounded-[1.5rem] border border-primary-dark/10 bg-neutral-light shadow-[0_30px_60px_-36px_rgba(10,29,77,0.45)] xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
     {/* Bloco navy */}
-    <div class="support-navy flex flex-col justify-center px-6 py-10 sm:px-10 sm:py-12 xl:px-14 xl:py-14">
+    <div class="support-navy navy-premium flex flex-col justify-center px-6 py-10 sm:px-10 sm:py-12 xl:px-14 xl:py-14">
       <Eyebrow tone="light">{supportPanel.eyebrow}</Eyebrow>
 
       <h2 class="mt-4 max-w-[26rem] font-display leading-[1.06] font-extrabold tracking-[-0.02em] text-neutral-light text-[1.75rem] sm:text-[2.1rem] lg:text-[2.1rem] xl:text-[2.4rem]">
@@ -120,9 +120,14 @@ const groups = [
 </Section>
 
 <style>
+  /* Painel menor: spot no canto de cima, brilho azul na quina de baixo à direita, verde
+     da marca rente à base (kit navy-premium, global.css). */
   .support-navy {
-    background:
-      radial-gradient(700px 420px at 0% 0%, rgb(255 255 255 / 0.06) 0%, transparent 60%),
-      linear-gradient(160deg, var(--color-primary-dark-900) 0%, #071634 100%);
+    --navy-key-x: 0%;
+    --navy-key-y: 0%;
+    --navy-fill-x: 104%;
+    --navy-fill-y: 78%;
+    --navy-ember-x: 20%;
+    --navy-ember-y: 120%;
   }
 </style>

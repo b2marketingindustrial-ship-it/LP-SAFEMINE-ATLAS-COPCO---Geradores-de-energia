@@ -45,6 +45,9 @@ const titleAfter = at >= 0 ? hero.title.slice(at + hero.highlight.length) : ''
 
   <div class="hero-navy-right pointer-events-none absolute inset-y-0 right-0 z-[2] hidden lg:block"></div>
 
+  {/* Vinheta e sombra de base sobre foto e navy: dá volume ao bloco */}
+  <div class="hero-light pointer-events-none absolute inset-0 z-[2]" aria-hidden="true"></div>
+
   <div
     class="hero-dots pointer-events-none absolute inset-y-0 left-0 z-[3] w-full opacity-[0.35] lg:[mask-image:linear-gradient(to_right,black_70%,transparent_100%)]"
     style="background-image: radial-gradient(circle, rgb(255 255 255 / 0.5) 1px, transparent 1px); background-size: 28px 28px;"
@@ -201,15 +204,32 @@ const titleAfter = at >= 0 ? hero.title.slice(at + hero.highlight.length) : ''
     --page-edge: max(0px, calc(50% - var(--page-half)));
   }
 
+  /* Iluminação no mesmo kit do navy-premium (global.css): grão, spot branco, brilho azul,
+     verde da marca e um feixe diagonal, sobre o degradê que dissolve na foto. */
   .hero-navy {
     background:
-      radial-gradient(1100px 520px at 12% -8%, rgb(255 255 255 / 0.1) 0%, transparent 55%),
+      var(--navy-grain) 0 0 / 180px 180px,
+      radial-gradient(
+        ellipse 70% 55% at 10% -6%,
+        rgb(255 255 255 / 0.18) 0%,
+        rgb(150 185 255 / 0.07) 40%,
+        transparent 70%
+      ),
+      radial-gradient(ellipse 60% 45% at 85% 95%, rgb(47 107 255 / 0.32) 0%, transparent 70%),
+      radial-gradient(ellipse 55% 40% at -5% 100%, rgb(123 162 73 / 0.2) 0%, transparent 70%),
+      linear-gradient(112deg, transparent 20%, rgb(255 255 255 / 0.04) 30%, transparent 40%),
       linear-gradient(
         to right,
         var(--color-primary-dark) 0%,
         var(--color-primary-dark-800) 55%,
         transparent 96%
       );
+  }
+
+  .hero-light {
+    background:
+      radial-gradient(ellipse 120% 95% at 40% 40%, transparent 55%, rgb(2 8 26 / 0.5) 100%),
+      linear-gradient(to top, rgb(2 8 26 / 0.5) 0%, transparent 28%);
   }
 
   @media (min-width: 1024px) {
@@ -228,26 +248,55 @@ const titleAfter = at >= 0 ? hero.title.slice(at + hero.highlight.length) : ''
     /* Navy sólido sob a coluna 1, dissolvendo antes do assunto. */
     .hero-navy {
       width: calc(50% - 20px);
+      /* Spots ficam antes da borda direita, que dissolve na foto. */
       background:
-        radial-gradient(900px 520px at 10% -10%, rgb(255 255 255 / 0.1) 0%, transparent 55%),
+        var(--navy-grain) 0 0 / 180px 180px,
+        radial-gradient(
+          ellipse 62% 70% at 30% -12%,
+          rgb(255 255 255 / 0.17) 0%,
+          rgb(150 185 255 / 0.07) 40%,
+          transparent 72%
+        ),
+        radial-gradient(ellipse 45% 55% at 78% 100%, rgb(47 107 255 / 0.38) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 50% at 18% 108%, rgb(123 162 73 / 0.2) 0%, transparent 70%),
+        linear-gradient(
+          112deg,
+          transparent 30%,
+          rgb(255 255 255 / 0.045) 40%,
+          transparent 50%,
+          transparent 60%,
+          rgb(255 255 255 / 0.03) 66%,
+          transparent 72%
+        ),
         linear-gradient(
           to left,
           transparent 0px,
           rgb(10 29 77 / 0.45) 70px,
           var(--color-primary-dark-800) 150px,
-          var(--color-primary-dark) 100%
+          var(--color-primary-dark) 55%,
+          #0e2766 100%
         );
     }
 
     /* Navy da direita: cobre a coluna do shortcode e fecha a margem da página. */
     .hero-navy-right {
       width: calc(50% - 261px);
-      background: linear-gradient(
-        to right,
-        transparent 0px,
-        rgb(10 29 77 / 0.55) 200px,
-        var(--color-primary-dark-900) 364px
-      );
+      /* Brilho azul sobre a coluna do shortcode, para a margem direita não ficar chapada. */
+      background:
+        radial-gradient(
+          ellipse 55% 45% at 72% 18%,
+          rgb(47 107 255 / 0.4) 0%,
+          rgb(47 107 255 / 0.12) 45%,
+          transparent 72%
+        ),
+        radial-gradient(ellipse 50% 40% at 90% 100%, rgb(26 70 181 / 0.45) 0%, transparent 70%),
+        linear-gradient(
+          to right,
+          transparent 0px,
+          rgb(10 29 77 / 0.55) 200px,
+          var(--color-primary-dark-900) 364px,
+          var(--navy-deep) 100%
+        );
     }
 
     .hero-dots {

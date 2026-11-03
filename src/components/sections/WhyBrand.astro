@@ -34,8 +34,9 @@ const titleBottom = why.titleLines.at(-1)
     class="why-hero navy-premium relative overflow-hidden"
     style="margin-top: calc(-1.5rem - var(--lp-round)); padding-top: var(--lp-round)"
   >
-    {/* Foto à direita (desktop), com a borda esquerda esmaecida no navy */}
-    <div class="why-photo absolute inset-y-0 right-0 hidden w-[58%] lg:block">
+    {/* Foto à direita (desktop), com a borda esquerda esmaecida no navy. Começa onde a coluna
+        de texto termina (ver .why-photo), para não passar por baixo do texto em telas largas. */}
+    <div class="why-photo absolute inset-y-0 right-0 hidden lg:block">
       <Picture
         src={why.scene.src}
         alt={why.scene.alt}
@@ -70,12 +71,13 @@ const titleBottom = why.titleLines.at(-1)
           {why.text}
         </p>
         <dl class="mt-7 grid grid-cols-3 border-y border-white/15 py-5">
+          {/* Entre 1024 e 1279px a coluna de texto tem 44% do container: números menores, para não vazarem para a foto */}
           {why.metrics.map((metric) => (
-            <div class="flex flex-col-reverse gap-1.5 border-l border-white/15 pl-3 first:border-l-0 first:pl-0 sm:pl-6">
-              <dt class="font-sans text-[12px] leading-snug text-neutral-light/70 sm:text-[14px]">
+            <div class="flex flex-col-reverse gap-1.5 border-l border-white/15 pl-3 first:border-l-0 first:pl-0 sm:pl-5 lg:pl-4 xl:pl-6">
+              <dt class="font-sans text-[12px] leading-snug text-neutral-light/70 sm:text-[14px] lg:text-[13px] xl:text-[14px]">
                 {metric.label}
               </dt>
-              <dd class="font-display text-[1.35rem] leading-none font-extrabold whitespace-nowrap text-accent-orange-light sm:text-[2rem]">
+              <dd class="font-display text-[1.25rem] leading-none font-extrabold text-accent-orange-light sm:text-[1.85rem] sm:whitespace-nowrap lg:text-[1.4rem] xl:text-[2rem]">
                 {metric.value}
               </dd>
             </div>
@@ -152,14 +154,36 @@ const titleBottom = why.titleLines.at(-1)
 </Section>
 
 <style>
+  /* Luz do bloco: spot sobre o título, brilho azul vindo de baixo (atrás dos cards) e o
+     verde da marca pela borda esquerda (kit navy-premium, global.css). */
   .why-hero {
     isolation: isolate;
+    --navy-key-x: 24%;
+    --navy-key-y: -12%;
+    --navy-fill-x: 40%;
+    --navy-fill-y: 100%;
+    --navy-ember-x: -6%;
+    --navy-ember-y: 62%;
   }
 
-  /* A foto nasce do navy pela esquerda: máscara, para não haver cor a casar. */
+  /*
+   * A foto nasce do navy pela esquerda: máscara, para não haver cor a casar.
+   * A borda esquerda acompanha o fim da coluna de texto, que vive no container de 1320px
+   * centrado: no mínimo 42% da tela (a foto nunca passa de 58%).
+   *  - lg: texto com 44% do container (padding 40px)  → 40px + 44% de (100% - 80px)
+   *  - xl: texto com 40rem → 40px + 40rem até 1320px; depois o container centra e o
+   *    texto termina em 50% - 660px + 40px + 640px = 50% + 20px.
+   */
   .why-photo {
+    left: max(42%, calc(40px + 0.44 * (100% - 80px)));
     -webkit-mask-image: linear-gradient(to right, transparent 0, rgb(0 0 0 / 0.6) 12%, #000 26%);
     mask-image: linear-gradient(to right, transparent 0, rgb(0 0 0 / 0.6) 12%, #000 26%);
+  }
+
+  @media (min-width: 1280px) {
+    .why-photo {
+      left: max(42%, calc(40px + 40rem), calc(50% + 20px));
+    }
   }
 
   /* No mobile, a faixa da foto nasce do navy por cima. */
