@@ -1,38 +1,95 @@
 ---
 /**
- * ESTRUTURA FIXA (PROMPT-PADRAO-LP 4.1.1). Barra navy sticky, logo em placa branca
- * "pendurada" (invade o hero), tagline central e CTA laranja. Sem menu e sem âncoras.
+ * ESTRUTURA FIXA (PROMPT-PADRAO-LP 4.1.1), com desvio pedido pelo usuário em 03/11/2026:
+ * mesma estrutura do header da LP SEIVE Lubrificação centralizada — barra branca com a logo
+ * dentro dela (sem a placa pendurada), filete da marca no topo, tagline central com selo,
+ * CTA e sombra só depois que a página rola (`data-scrolled`). Sem menu: uma rota, uma
+ * página (regra 1). Registrado em docs/BRIEFING.md (Desvios do padrão).
+ *
+ * Logos Safe Mine (anunciante) e Atlas Copco (fabricante), nessa ordem, separadas por um
+ * filete (pedido do usuário, 03/11/2026). A da Atlas Copco é
+ * a do Wikimedia Commons (Atlas-Copco-Logo.svg, em PNG de 960 px): trocar pela oficial se chegar.
  */
 import Button from './Button.astro'
+import Icon from './Icon.astro'
 import { Image } from 'astro:assets'
+import atlasLogo from '../assets/atlas-copco-logo.png'
 import logo from '../assets/marca-safe-mine.png'
 import { header, cta } from '../data/content'
 ---
 
-<header class="sticky top-0 z-50 bg-primary-dark-900">
-  <div class="mx-auto flex max-w-page items-center justify-between gap-3 px-4 py-3 sm:gap-6 sm:px-6 lg:px-10">
-    <a href="/" class="flex shrink-0 items-center self-start">
-      <span class="header-plate -mt-3 -mb-10 flex items-center gap-3 rounded-b-xl bg-neutral-light px-3 pt-5 pb-5 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.55)] sm:gap-5 sm:px-6">
-        <Image
-          src={logo}
-          alt="Safe Mine"
-          width={420}
-          format="webp"
-          loading="eager"
-          fetchpriority="low"
-          decoding="async"
-          class="h-7 w-auto sm:h-12"
-        />
-      </span>
+<header data-header class="site-header sticky top-0 z-50 bg-neutral-light/95 backdrop-blur-md">
+  <span
+    aria-hidden="true"
+    class="block h-[3px] bg-[linear-gradient(90deg,var(--color-accent-orange-light)_0%,var(--color-accent-orange)_40%,var(--color-primary-dark-800)_100%)]"
+  ></span>
+  <div class="mx-auto flex max-w-page items-center justify-between gap-3 px-6 py-3 sm:gap-6 lg:px-10">
+    {/* 1. Logos Safe Mine (anunciante) e Atlas Copco (fabricante), separadas por um filete */}
+    <a href="/" class="header-logo flex shrink-0 items-center gap-3 sm:gap-[18px]">
+      <Image
+        src={logo}
+        alt="Safe Mine"
+        width={420}
+        format="webp"
+        loading="eager"
+        fetchpriority="low"
+        decoding="async"
+        class="h-[20px] w-auto sm:h-[34px]"
+      />
+      <span aria-hidden="true" class="h-[28px] w-px shrink-0 bg-primary-dark/15 sm:h-10"></span>
+      <Image
+        src={atlasLogo}
+        alt="Atlas Copco"
+        width={200}
+        format="webp"
+        loading="eager"
+        fetchpriority="low"
+        decoding="async"
+        class="h-[28px] w-auto sm:h-[46px]"
+      />
     </a>
 
-    <span class="hidden flex-1 text-center font-display text-[15px] font-extrabold tracking-[0.14em] text-neutral-light uppercase sm:block lg:text-[17px]">
-      {header.tagline}
-    </span>
+    {/* 2. Tagline com selo, centrada entre as logos e o CTA (some abaixo de lg) */}
+    <div class="hidden flex-1 items-center justify-center lg:flex">
+      <span class="flex items-center gap-2.5 font-display text-[13px] font-extrabold tracking-[0.14em] text-primary-dark uppercase">
+        <span class="flex size-7 items-center justify-center rounded-full bg-accent-orange/12 text-accent-orange">
+          <Icon name="badge-check" class="size-4" />
+        </span>
+        {header.tagline}
+      </span>
+    </div>
 
+    {/* 3. CTA, rótulo curto no mobile */}
     <Button cta="header-cta" size="sm" icon={false} class="shrink-0">
       <span class="sm:hidden">{cta.primaryShort}</span>
       <span class="hidden sm:inline">{cta.primary}</span>
     </Button>
   </div>
 </header>
+
+<style>
+  /* Linha fina enquanto a página está no topo; sombra quando o conteúdo passa por baixo. */
+  .site-header {
+    box-shadow: 0 1px 0 rgb(10 29 77 / 0.08);
+    transition: box-shadow 0.25s ease;
+  }
+
+  .site-header[data-scrolled] {
+    box-shadow: 0 14px 30px -20px rgb(10 29 77 / 0.55);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-header {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // Sombra do header só depois que a página rola.
+  document.querySelectorAll<HTMLElement>('[data-header]').forEach((el) => {
+    const update = () => el.toggleAttribute('data-scrolled', window.scrollY > 8)
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+  })
+</script>

@@ -43,6 +43,20 @@
     letter-spacing: -0.015em;
   }
 
+  /* Títulos com linhas de largura parecida (sem "Atlas / Copco" partido nem palavra sozinha
+     na última linha) e parágrafos sem viúva. Navegador sem suporte ignora. */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p,
+  dd,
+  summary {
+    text-wrap: pretty;
+  }
+
   ::selection {
     @apply bg-accent-orange text-neutral-light;
   }
@@ -51,6 +65,26 @@
     outline: 2px solid var(--color-accent-orange);
     outline-offset: 2px;
   }
+}
+
+/* Curva da seção acima dos diferenciais (03/11/2026, como nas LPs SEIVE): a base dela se
+   arredonda por cima do bloco navy, que sobe por baixo (ver WhyBrand.astro). */
+:root {
+  --lp-round: 2rem;
+}
+
+@media (width >= 64rem) {
+  :root {
+    --lp-round: 3rem;
+  }
+}
+
+#main > section:has(+ #diferenciais),
+#main > section:has(+ script + #diferenciais) {
+  position: relative;
+  z-index: 2;
+  border-bottom-left-radius: var(--lp-round);
+  border-bottom-right-radius: var(--lp-round);
 }
 
 /* Fundo navy com brilho radial: hero, painéis, bloco de diferenciais e footer. */

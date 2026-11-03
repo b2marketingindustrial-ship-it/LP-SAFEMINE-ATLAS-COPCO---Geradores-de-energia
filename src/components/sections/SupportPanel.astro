@@ -6,9 +6,10 @@
  *
  * Card dividido a partir de 1280px (abaixo, empilhado): bloco navy à esquerda (título, texto, CTA e reforço) — continua sendo
  * o bloco navy da primeira metade da página — e, à direita, os 6 dados em dois grupos:
- * o essencial e o "se souber" (`list.optionalFrom`).
+ * o essencial e o "se souber" (`list.optionalFrom`), lado a lado a partir de 640px.
  */
 import Button from '@components/Button.astro'
+import Eyebrow from '@components/Eyebrow.astro'
 import Section from '@components/Section.astro'
 import Icon from '@components/Icon.astro'
 import type { SectionProps } from '@lib/layout'
@@ -18,18 +19,21 @@ type Props = SectionProps
 
 const { tone, rhythm } = Astro.props
 const { list } = supportPanel
-const [main, ...essentials] = supportPanel.items.slice(0, list.optionalFrom)
-const optionals = supportPanel.items.slice(list.optionalFrom)
+const groups = [
+  {
+    label: list.essentialLabel,
+    items: supportPanel.items.slice(0, list.optionalFrom),
+    primary: true,
+  },
+  { label: list.optionalLabel, items: supportPanel.items.slice(list.optionalFrom), primary: false },
+]
 ---
 
 <Section id="identificar" tone={tone} rhythm={rhythm}>
   <div class="grid overflow-hidden rounded-[1.5rem] border border-primary-dark/10 bg-neutral-light shadow-[0_30px_60px_-36px_rgba(10,29,77,0.45)] xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
     {/* Bloco navy */}
     <div class="support-navy flex flex-col justify-center px-6 py-10 sm:px-10 sm:py-12 xl:px-14 xl:py-14">
-      <span class="inline-flex items-center gap-4 font-sans text-[12px] font-semibold tracking-[0.16em] text-neutral-light/70 uppercase sm:text-[13px]">
-        <span class="h-[3px] w-8 shrink-0 rounded-full bg-accent-orange" aria-hidden="true"></span>
-        {supportPanel.eyebrow}
-      </span>
+      <Eyebrow tone="light">{supportPanel.eyebrow}</Eyebrow>
 
       <h2 class="mt-4 max-w-[26rem] font-display leading-[1.06] font-extrabold tracking-[-0.02em] text-neutral-light text-[1.75rem] sm:text-[2.1rem] lg:text-[2.1rem] xl:text-[2.4rem]">
         {supportPanel.title}
@@ -49,65 +53,68 @@ const optionals = supportPanel.items.slice(list.optionalFrom)
       </p>
     </div>
 
-    {/* Lado claro: o que enviar */}
-    <div class="px-6 py-10 sm:px-10 sm:py-12 xl:px-12 xl:py-12">
-      <h3 class="font-display leading-tight font-extrabold text-primary-dark-900 text-[1.3rem] sm:text-[1.6rem]">
+    {/* Lado claro: o que enviar, em dois grupos paralelos com a mesma linha (ícone, rótulo, dica).
+        O essencial leva o verde e fundo cinza; o "se souber" fica neutro, em fundo branco. */}
+    <div class="flex flex-col justify-center px-6 py-10 sm:px-10 sm:py-12 xl:px-12">
+      <h3 class="font-display text-[1.3rem] leading-tight font-extrabold text-primary-dark-900 sm:text-[1.6rem]">
         {list.title}
       </h3>
       <p class="mt-2 font-sans text-[15px] leading-snug text-ink-soft sm:text-[17px]">
         {list.text}
       </p>
 
-      <ul
-        class="mt-6 grid gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]"
-        aria-label={list.title}
-      >
-        <li class="support-card flex items-center gap-5 px-5 py-5 sm:col-span-2 sm:px-6">
-          <span class="support-badge size-16">
-            <Icon name={main.icon} class="size-8" />
-          </span>
-          <span class="flex min-w-0 flex-col gap-1">
-            <span class="font-display text-[17px] font-extrabold text-primary-dark-900">
-              {main.label}
-            </span>
-            <span class="font-sans text-[15px] leading-snug text-ink-soft">{main.hint}</span>
-          </span>
-        </li>
-        {essentials.map((item) => (
-          <li class="support-card flex items-center gap-4 px-5 py-4">
-            <span class="support-badge size-14">
-              <Icon name={item.icon} class="size-7" />
-            </span>
-            <span class="flex min-w-0 flex-col gap-1">
-              <span class="font-display text-[16px] font-extrabold text-primary-dark-900">
-                {item.label}
-              </span>
-              <span class="font-sans text-[14px] leading-snug text-ink-soft">{item.hint}</span>
-            </span>
-          </li>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        {groups.map((group) => (
+          <div
+            class:list={[
+              'rounded-2xl border px-5 pt-4 pb-2',
+              group.primary
+                ? 'border-primary-dark/10 bg-neutral-gray-100'
+                : 'border-primary-dark/10 bg-neutral-light',
+            ]}
+          >
+            <p
+              class:list={[
+                'flex items-center gap-2 font-sans text-[11px] font-bold tracking-[0.16em] uppercase',
+                group.primary ? 'text-accent-orange-dark' : 'text-ink-soft',
+              ]}
+            >
+              <span
+                aria-hidden="true"
+                class:list={[
+                  'size-1.5 shrink-0 rounded-full',
+                  group.primary ? 'bg-accent-orange' : 'bg-primary-dark/25',
+                ]}
+              ></span>
+              {group.label}
+            </p>
+            <ul class="mt-2 divide-y divide-primary-dark/10" aria-label={group.label}>
+              {group.items.map((item) => (
+                <li class="flex items-center gap-3.5 py-3.5">
+                  <span
+                    class:list={[
+                      'flex size-10 shrink-0 items-center justify-center rounded-xl',
+                      group.primary
+                        ? 'bg-accent-orange/10 text-accent-orange'
+                        : 'bg-primary-dark/[0.06] text-primary-dark-900',
+                    ]}
+                  >
+                    <Icon name={item.icon} class="size-5" />
+                  </span>
+                  <span class="flex min-w-0 flex-col gap-0.5">
+                    <span class="font-display text-[15px] leading-snug font-extrabold text-primary-dark-900">
+                      {item.label}
+                    </span>
+                    <span class="font-sans text-[13px] leading-snug text-ink-soft">
+                      {item.hint}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
-      </ul>
-
-      <div class="mt-6 flex items-center gap-4" aria-hidden="true">
-        <span class="font-sans text-[14px] font-semibold text-ink-soft">{list.optionalLabel}</span>
-        <span class="h-px flex-1 bg-primary-dark/12"></span>
       </div>
-
-      <ul class="mt-4 grid gap-4 sm:grid-cols-3" aria-label={list.optionalLabel}>
-        {optionals.map((item) => (
-          <li class="support-card flex items-center gap-3.5 px-4 py-4">
-            <span class="support-badge size-12">
-              <Icon name={item.icon} class="size-6" />
-            </span>
-            <span class="flex min-w-0 flex-col gap-0.5">
-              <span class="font-display text-[16px] font-extrabold text-primary-dark-900">
-                {item.label}
-              </span>
-              <span class="font-sans text-[14px] leading-snug text-ink-soft">{item.hint}</span>
-            </span>
-          </li>
-        ))}
-      </ul>
     </div>
   </div>
 </Section>
@@ -117,21 +124,5 @@ const optionals = supportPanel.items.slice(list.optionalFrom)
     background:
       radial-gradient(700px 420px at 0% 0%, rgb(255 255 255 / 0.06) 0%, transparent 60%),
       linear-gradient(160deg, var(--color-primary-dark-900) 0%, #071634 100%);
-  }
-
-  .support-card {
-    border: 1px solid rgb(10 29 77 / 0.1);
-    border-radius: 0.875rem;
-    background-color: #f6f8fb;
-  }
-
-  .support-badge {
-    display: flex;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9999px;
-    background-color: rgb(10 29 77 / 0.06);
-    color: var(--color-primary-dark-900);
   }
 </style>

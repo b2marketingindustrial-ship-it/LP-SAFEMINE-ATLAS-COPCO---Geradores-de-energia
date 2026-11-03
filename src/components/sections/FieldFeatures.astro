@@ -1,0 +1,77 @@
+---
+/**
+ * Recursos QAS e QES — fase "prova". Seção própria (03/11/2026, trazida da LP de torres a pedido do usuário),
+ * fora da biblioteca B2: `npm run compose` não a conhece e a removeria da página.
+ *
+ * Cabeçalho em duas colunas (título · texto), como Linhas, e uma ficha branca única com
+ * 6 células em grid 1/2/3 colunas, separadas por divisórias de 1px: ícone em quadrado navy
+ * e índice, título, descrição e, no pé, o modelo ou a linha a que o recurso se aplica. Sem CTA: a seção informa, o FAQ e os diferenciais
+ * logo abaixo levam à cotação.
+ */
+import Eyebrow from '@components/Eyebrow.astro'
+import Section from '@components/Section.astro'
+import Icon from '@components/Icon.astro'
+import type { SectionProps } from '@lib/layout'
+import { features } from '@data/sections/recursos'
+
+type Props = SectionProps
+
+const { tone, rhythm } = Astro.props
+
+const at = features.title.indexOf(features.titleHighlight)
+const before = at >= 0 ? features.title.slice(0, at) : features.title
+const after = at >= 0 ? features.title.slice(at + features.titleHighlight.length) : ''
+---
+
+<Section id="recursos" tone={tone} rhythm={rhythm}>
+  <div class="grid gap-5 lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
+    <div>
+      <Eyebrow>{features.eyebrow}</Eyebrow>
+      <h2 class="mt-4 font-display text-[1.75rem] leading-[1.08] font-extrabold tracking-[-0.02em] text-primary-dark-900 sm:text-[2.1rem] lg:text-[2.1rem] xl:text-[2.4rem]">
+        {before}
+        {at >= 0 && <span class="text-accent-orange">{features.titleHighlight}</span>}
+        {after}
+      </h2>
+    </div>
+    <p class="max-w-[30rem] font-sans text-[16px] leading-relaxed text-ink-soft sm:text-[17px] lg:pb-1.5">
+      {features.text}
+    </p>
+  </div>
+
+  {/* Uma ficha só, com divisórias de 1px (o fundo da lista aparece no `gap-px`): lê como
+      folha técnica e encurta a rolagem no celular, onde eram 6 cards com sombra e respiro.
+      Celular: ícone numa coluna à esquerda do texto. A partir de 640px: ícone em cima, com o índice. */}
+  <ul class="feature-sheet mt-10 grid gap-px overflow-hidden rounded-2xl border border-primary-dark/10 bg-primary-dark/10 sm:grid-cols-2 xl:grid-cols-3">
+    {features.items.map((item, i) => (
+      <li class="grid grid-cols-[auto_minmax(0,1fr)] content-start gap-x-4 bg-neutral-light px-5 py-5 sm:flex sm:flex-col sm:px-6 sm:py-6 xl:px-7 xl:py-7">
+        <div class="row-span-3 sm:flex sm:items-center sm:justify-between sm:gap-4">
+          <span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary-dark-900 text-accent-orange-light sm:size-11">
+            <Icon name={item.icon} class="size-5 sm:size-[22px]" />
+          </span>
+          <span
+            class="hidden font-display text-[11px] font-extrabold tracking-[0.2em] text-primary-dark/35 sm:inline"
+            aria-hidden="true"
+          >
+            {String(i + 1).padStart(2, '0')}
+          </span>
+        </div>
+        <h3 class="font-display text-[1.1rem] leading-snug font-extrabold text-primary-dark-900 sm:mt-5 sm:text-[1.15rem]">
+          {item.title}
+        </h3>
+        <p class="mt-1.5 mb-3 font-sans text-[15px] leading-relaxed text-ink-soft sm:mt-2 sm:mb-5">
+          {item.description}
+        </p>
+        <span class="mt-auto inline-flex items-center gap-2 self-start font-sans text-[12px] font-semibold text-accent-orange-dark">
+          <span class="size-1.5 shrink-0 rounded-full bg-accent-orange" aria-hidden="true"></span>
+          {item.scope}
+        </span>
+      </li>
+    ))}
+  </ul>
+</Section>
+
+<style>
+  .feature-sheet {
+    box-shadow: 0 24px 48px -34px rgb(10 29 77 / 0.35);
+  }
+</style>

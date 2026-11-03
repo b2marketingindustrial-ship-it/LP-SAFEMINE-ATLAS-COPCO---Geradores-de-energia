@@ -13,9 +13,11 @@
       "identificar"
     ],
     "prova": [
-      "aplicacoes"
+      "aplicacoes",
+      "recursos"
     ],
     "autoridade": [
+      "perguntas",
       "diferenciais"
     ]
   },
@@ -168,6 +170,83 @@
           "alpha": false
         }
       ]
+    },
+    {
+      "slug": "recursos",
+      "id": "recursos",
+      "title": "Recursos QAS e QES",
+      "phase": "prova",
+      "component": "FieldFeatures.astro",
+      "data": "recursos.ts",
+      "dataExport": "features",
+      "carriesNavy": false,
+      "tone": "gray",
+      "rhythm": "flow",
+      "tones": [
+        "light",
+        "gray"
+      ],
+      "rhythms": [
+        "even",
+        "tight",
+        "flow"
+      ],
+      "assets": [],
+      "ctas": [],
+      "contract": {
+        "itemsPath": "items",
+        "itemsMin": 4,
+        "itemsMax": 6,
+        "requiredItemFields": [
+          "icon",
+          "title",
+          "description",
+          "scope"
+        ],
+        "maxLength": {
+          "text": 170
+        }
+      }
+    },
+    {
+      "slug": "perguntas",
+      "id": "perguntas",
+      "title": "Perguntas frequentes",
+      "phase": "autoridade",
+      "component": "Faq.astro",
+      "data": "perguntas.ts",
+      "dataExport": "faq",
+      "carriesNavy": false,
+      "tone": "gray",
+      "rhythm": "flow",
+      "tones": [
+        "light",
+        "gray"
+      ],
+      "rhythms": [
+        "even",
+        "tight",
+        "flow"
+      ],
+      "assets": [],
+      "ctas": [
+        "perguntas-cta"
+      ],
+      "contract": {
+        "itemsPath": "items",
+        "itemsMin": 4,
+        "itemsMax": 8,
+        "requiredItemFields": [
+          "question",
+          "answer"
+        ],
+        "endsWith": {
+          "item.question": "?"
+        },
+        "maxLength": {
+          "text": 170
+        }
+      }
     },
     {
       "slug": "diferenciais",

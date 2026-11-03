@@ -29,6 +29,7 @@ export const supportPanel = {
   list: {
     title: 'O que ajuda na sua cotação',
     text: 'Comece pela operação. Os dados técnicos podem ficar para depois.',
+    essentialLabel: 'Essencial',
     optionalLabel: 'Se souber, envie também',
     optionalFrom: 3,
   },
@@ -50,6 +51,12 @@ export const supportPanel = {
   text: string
   microcopy: string
   ctaLabel: string
-  list: { title: string; text: string; optionalLabel: string; optionalFrom: number }
+  list: {
+    title: string
+    text: string
+    essentialLabel: string
+    optionalLabel: string
+    optionalFrom: number
+  }
   items: readonly [SupportItem, SupportItem, SupportItem, SupportItem, SupportItem, SupportItem]
 }

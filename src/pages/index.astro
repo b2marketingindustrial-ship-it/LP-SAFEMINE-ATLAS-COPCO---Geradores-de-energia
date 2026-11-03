@@ -18,6 +18,8 @@ import Footer from '../components/Footer.astro'
 import ProductLines from '../components/sections/ProductLines.astro'
 import SupportPanel from '../components/sections/SupportPanel.astro'
 import ApplicationsGallery from '../components/sections/ApplicationsGallery.astro'
+import FieldFeatures from '../components/sections/FieldFeatures.astro'
+import Faq from '../components/sections/Faq.astro'
 import WhyBrand from '../components/sections/WhyBrand.astro'
 import { shortcodes } from '../data/site'
 ---
@@ -32,6 +34,8 @@ import { shortcodes } from '../data/site'
     <ProductLines tone="light" rhythm="open" />
     <SupportPanel tone="light" rhythm="panel-lead" />
     <ApplicationsGallery tone="gray" rhythm="centered-lead" />
+    <FieldFeatures tone="gray" rhythm="flow" />
+    <Faq tone="gray" rhythm="flow" />
     <WhyBrand tone="gray" rhythm="overlap" />
     <QuoteForm>
       <Fragment slot="shortcode">{shortcodes.form}</Fragment>

@@ -27,6 +27,8 @@ export interface ProductLine {
   description: string
   photo: Photo
   features: readonly [string, string, string]
+  /** Quando escolher esta faixa: aplicação típica, a partir da página de geradores da Safe Mine. */
+  idealFor: string
   /** Exatamente um card escuro por grid. Informe sempre (true/false). */
   dark: boolean
 }
@@ -36,41 +38,41 @@ export const productLines = {
   title: 'Geradores QAS e QES para cada demanda de energia',
   /** Trecho do título em verde, na segunda linha. */
   titleHighlight: 'cada demanda de energia',
-  text: 'QAS: linha premium fabricada no Brasil, para condições severas. QES: custo competitivo, manutenção simples e implantação rápida.',
+  text: 'QAS, premium e fabricada no Brasil, para condições severas. QES, de custo competitivo e implantação rápida.',
   /** Rótulos das duas primeiras features de cada card. */
   specLabels: ['Standby', 'Tensão'],
-  help: {
-    title: 'Não sabe qual gerador escolher?',
-    text: 'Informe a carga e o regime de uso. A Safe Mine indica a linha e o modelo.',
-    cta: 'Receber orientação',
-  },
+  /** Rótulo da linha "quando escolher" de cada card. */
+  idealForLabel: 'Indicado para',
   note: 'Potências, tensões e configurações dependem do modelo. Outras potências sob consulta.',
   items: [
     {
       id: 'qas-24-105',
       tag: 'QAS · pequeno porte',
       title: 'QAS 24 a 105',
-      description: 'Modelos QAS 24, 40, 55, 70, 85 e 105, para obras e operações remotas.',
+      description: 'Modelos QAS 24, 40, 55, 70, 85 e 105, da linha premium.',
       photo: { src: linha1, alt: 'Gerador QAS 24 Atlas Copco sobre terreno de terra' },
       features: ['24 a 101,8 kVA', '220 a 440 V', 'Kubota no QAS 24, Perkins no 55 e 105'],
+      idealFor: 'Canteiros de obra e frentes remotas, longe da rede.',
       dark: false,
     },
     {
       id: 'qas-130-180',
       tag: 'QAS · médio porte',
       title: 'QAS 130 e 180',
-      description: 'Modelos QAS 130 e 180, para plantas industriais e demandas maiores.',
+      description: 'Modelos QAS 130 e 180, para demandas intermediárias.',
       photo: { src: linha2, alt: 'Gerador QAS Atlas Copco instalado em base de concreto' },
       features: ['Até 171,3 kVA', '220 a 440 V', 'Perkins no QAS 180'],
+      idealFor: 'Plantas industriais e operação em condições severas.',
       dark: false,
     },
     {
       id: 'qas-225-550',
       tag: 'QAS · grande porte',
       title: 'QAS 225 a 550',
-      description: 'Modelos QAS 225, 360 e 550, para grandes cargas e operação em paralelo.',
+      description: 'Modelos QAS 225, 360 e 550, o topo da faixa QAS.',
       photo: { src: linha3, alt: 'Gerador QAS Atlas Copco de grande porte' },
       features: ['Até 550 kVA', '220 a 440 V', 'Scania nos QAS 360 e 550'],
+      idealFor: 'Grandes cargas e operação em paralelo.',
       dark: false,
     },
     {
@@ -80,6 +82,7 @@ export const productLines = {
       description: 'Modelos QES 35, 50, 70, 110 e 140, de manutenção simples.',
       photo: { src: linha4, alt: 'Gerador QES Atlas Copco com painel de acesso aberto' },
       features: ['36 a 153 kVA', '220 V', 'Motores Kubota ou Cummins'],
+      idealFor: 'Obras e operações temporárias, com custo competitivo.',
       dark: true,
     },
   ],
@@ -89,7 +92,7 @@ export const productLines = {
   titleHighlight: string
   text: string
   specLabels: readonly [string, string]
-  help: { title: string; text: string; cta: string }
+  idealForLabel: string
   note: string
   items:
     | readonly [ProductLine, ProductLine, ProductLine]

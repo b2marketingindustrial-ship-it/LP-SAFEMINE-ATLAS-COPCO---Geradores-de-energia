@@ -327,13 +327,15 @@ As seções são as da LP de compressores: `linhas`, `identificar`, `aplicacoes`
 
 ## Pendências
 
-| O que falta                              | Quem resolve   | Efeito                                        |
-| ---------------------------------------- | -------------- | --------------------------------------------- |
-| Standby exato de QAS 130 e 225           | Safe Mine      | detalha os cards de médio e grande porte      |
-| Motores de QAS 40, 70, 85, 130 e 225     | Safe Mine      | completa o motor nos cards                    |
-| Formulário e chat do plugin no WordPress | B2             | ativa o formulário e os botões de atendimento |
-| URL final e política de privacidade      | B2 + Safe Mine | `site.url` e `privacyUrl`                     |
-| Geografia da campanha limitada a MG      | B2             | confirma a área declarada na página           |
-| Fotos em alta ou recortadas por linha    | Safe Mine      | substitui os recortes de menor resolução      |
-| Foto real em frente de lavra             | Safe Mine      | substitui a foto içada no primeiro card       |
-| Prazo, garantia, faturamento e preço     | comercial      | libera perguntas frequentes                   |
+| O que falta                                 | Quem resolve   | Efeito                                        |
+| ------------------------------------------- | -------------- | --------------------------------------------- |
+| Standby exato de QAS 130 e 225              | Safe Mine      | detalha os cards de médio e grande porte      |
+| Motores de QAS 40, 70, 85, 130 e 225        | Safe Mine      | completa o motor nos cards                    |
+| Formulário e chat do plugin no WordPress    | B2             | ativa o formulário e os botões de atendimento |
+| URL final e política de privacidade         | B2 + Safe Mine | `site.url` e `privacyUrl`                     |
+| Geografia da campanha limitada a MG         | B2             | confirma a área declarada na página           |
+| Fotos em alta ou recortadas por linha       | Safe Mine      | substitui os recortes de menor resolução      |
+| Foto real em frente de lavra                | Safe Mine      | substitui a foto içada no primeiro card       |
+| Prazo, garantia, faturamento e preço        | comercial      | completa as perguntas frequentes              |
+| Logo oficial da Atlas Copco em alta         | Safe Mine      | substitui a do Wikimedia Commons no header    |
+| Recursos confirmados no site da Atlas Copco | B2             | o site devolveu 404 em 03/11/2026             |

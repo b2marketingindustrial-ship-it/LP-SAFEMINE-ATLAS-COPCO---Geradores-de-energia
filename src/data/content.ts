@@ -90,7 +90,7 @@ export const quote = {
   help: 'Não sabe a potência exata? Basta descrever a operação.',
   trust: [
     { icon: 'users', label: 'Atendimento consultivo' },
-    { icon: 'pin', label: 'Atendimento em Minas Gerais' },
+    { icon: 'pin', label: 'Atendimento em MG' },
     { icon: 'badge-check', label: 'Distribuidor autorizado Atlas Copco' },
   ],
   /** Nota de LGPD exibida abaixo do formulário. */

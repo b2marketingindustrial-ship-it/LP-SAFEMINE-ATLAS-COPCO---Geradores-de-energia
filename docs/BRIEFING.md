@@ -74,10 +74,20 @@ Pendências em `docs/FICHA-LP.md`. Na Vercel não há o plugin de atendimento: o
 
 ## Desvios do padrão
 
-- **Header:** sem desvio. Restaurado em 01/11/2026 à estrutura fixa 4.1.1 (barra navy sticky, logo em placa pendurada, tagline central, CTA laranja, sem âncoras).
-- **Hero:** sem desvio. O Hero da primeira versão (fundo claro, sem a coluna do chat) foi substituído em 01/11/2026 pelo da estrutura fixa 4.1.2: grid `1fr · 270px · 300px`, coluna 2 vazia, slot `shortcode` de 300px, foto de 1700px ancorada na borda do container. A faixa de prioridades e o cartão de ajuda do hero saíram; a nota ficou sob os botões. A foto foi reenquadrada em 1981×900, com o grupo em ~70% da largura.
+Em 03/11/2026, a pedido do usuário, a página passou a seguir a LP de torres de iluminação da Safe Mine (repositório `LP-SAFEMINE-ATLAS-COPCO---Torre-de-ilumina-o`, commits `4f509dc` e `2de3413`): mesma estética, header, hero, estrutura e seções. Os componentes foram copiados de lá; o conteúdo é o de geradores.
+
+- **Header:** barra branca sticky da LP SEIVE Lubrificação, como na LP de torres: filete da marca no topo, logos Safe Mine e Atlas Copco lado a lado separadas por um filete, tagline central com selo, CTA, sombra só ao rolar. Sem menu (regra 1). A logo da Atlas Copco é a do Wikimedia Commons (`src/assets/atlas-copco-logo.png`), a trocar pela oficial se chegar. Assinatura A8 do `check-lp.mjs` repinada.
+- **Hero:** estrutura fixa 4.1.2 mantida. Texto limitado a 36rem no desktop e botões em largura total no celular.
+- **Linhas:** produto sobre palco com a etiqueta no canto, motor em badge e a linha "Indicado para" em cada card. A foto preenche o palco com `object-cover` (sem recorte no material), em vez do `object-contain` com multiply da LP de torres. A faixa "Não sabe qual gerador escolher?" saiu por repetir o painel `identificar`.
+- **Identificar:** dados em dois grupos paralelos (Essencial / Se souber).
+- **Aplicações:** estrutura "Segmentos atendidos" das LPs SEIVE: faixa navy de largura total, cards brancos com ícone e a faixa "Sua aplicação não está aqui?".
+- **Recursos QAS e QES:** seção própria (`FieldFeatures.astro`, `recursos.ts`, fase prova) acima do FAQ. 6 recursos da página de geradores do site da Safe Mine, cada um com a linha a que se aplica. Paralelo, contenção de 110% e intervalo de 500 h saíram dos diferenciais e vieram para cá. O site da Atlas Copco devolveu 404 nas páginas de geradores móveis em 03/11/2026. Fora da biblioteca: `npm run compose` a removeria.
+- **Perguntas:** seção `perguntas` (`Faq.astro`) entre recursos e diferenciais, com JSON-LD FAQPage. As 6 perguntas usam só dados já publicados na LP; falta a lista real do comercial (prazo, garantia, faturamento).
+- **Diferenciais:** layout "Por que a Safe Mine" das LPs SEIVE: bloco navy que sobe por baixo da base arredondada do FAQ (`--lp-round`, global.css), 3 números (2017, +20 anos da equipe, 16 modelos) e CTA, foto à direita e 5 cards brancos sobrepostos. Fundação em 2017 e experiência da equipe vêm da página "Quem somos" do site da Safe Mine; entram agora porque o bloco passou a ter números (a ficha os deixava para esse caso).
+- **Cotação:** só o espaço do shortcode, sem card nem nota de LGPD; selos com ícone em badge; selo "Atendimento em MG".
+- **Rótulos:** `Eyebrow.astro` da LP SEIVE (traço verde de 36px) em toda a página. Títulos com `text-wrap: balance`.
 - **Paleta:** os véus do hero usam o azul `#0a1d4d` da marca no lugar do navy `#001830` do template. O token `accent-orange-light` (`#7ba249`) existe só para o destaque do H1 sobre o fundo escuro.
 
-## Header restaurado ao padrão (01/11/2026)
+## Header restaurado ao padrão (01/11/2026, substituído em 03/11/2026)
 
 A pedido do usuário, o Header deixou a barra branca flutuante do mockup de 29/10/2026 e voltou à estrutura fixa 4.1.1, como nas demais LPs da B2: barra navy `sticky`, a placa branca traz o logo da Safe Mine, tagline central "Geradores de energia" e CTA laranja em caixa-alta ("Cotação" no celular). As âncoras do topo saíram. O Hero voltou ao padding do padrão (`py-20 lg:py-24`), já que o header não é mais sobreposto. A assinatura A8 do Header em `scripts/check-lp.mjs` voltou à da estrutura fixa.

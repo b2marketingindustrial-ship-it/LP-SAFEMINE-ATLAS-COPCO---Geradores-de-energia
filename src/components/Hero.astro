@@ -74,7 +74,8 @@ const titleAfter = at >= 0 ? hero.title.slice(at + hero.highlight.length) : ''
           {titleAfter}
         </h1>
 
-        <p class="mt-5 font-sans text-lg leading-relaxed text-neutral-light/75 lg:text-base">
+        {/* 36rem no desktop: linhas mais curtas, como na LP de torres */}
+        <p class="mt-5 font-sans text-lg leading-relaxed text-neutral-light/75 lg:max-w-[36rem] lg:text-base">
           {hero.text}
         </p>
 
@@ -94,8 +95,9 @@ const titleAfter = at >= 0 ? hero.title.slice(at + hero.highlight.length) : ''
         </ul>
 
         {/* Botões inline */}
-        <div class="mt-7 flex flex-wrap items-center gap-4">
-          <Button cta="hero-primary" variant="primary" size="lg">
+        {/* No celular os dois ocupam a largura toda: mesma largura, alvo de toque maior */}
+        <div class="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+          <Button cta="hero-primary" variant="primary" size="lg" class="w-full sm:w-auto">
             {cta.primary}
           </Button>
           <Button
@@ -104,6 +106,7 @@ const titleAfter = at >= 0 ? hero.title.slice(at + hero.highlight.length) : ''
             size="lg"
             iconName="search"
             iconPosition="left"
+            class="w-full sm:w-auto"
           >
             {cta.secondary}
           </Button>

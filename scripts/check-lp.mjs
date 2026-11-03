@@ -189,9 +189,11 @@ for (const f of astroFiles) {
 
 /* A8. Estrutura fixa: assinaturas do Header, Hero, Cotação e Footer ---------- */
 {
-  // Header e Hero seguem a estrutura fixa 4.1.1 e 4.1.2 (restaurados em 01/11/2026).
+  // Hero segue a estrutura fixa 4.1.2 (restaurado em 01/11/2026). Header com desvio pedido em
+  // 03/11/2026 (docs/BRIEFING.md, Desvios do padrão): barra branca da LP SEIVE Lubrificação.
+  // A assinatura foi repinada na estrutura nova e continua guardando contra mudança acidental.
   const expect = {
-    'Header.astro': ['sticky top-0 z-50', 'bg-primary-dark-900', 'cta="header-cta"'],
+    'Header.astro': ['sticky top-0 z-50', 'bg-neutral-light', 'header-logo', 'cta="header-cta"'],
     'Hero.astro': [
       'grid-template-columns: minmax(0, 1fr) 270px 300px',
       'right: var(--page-edge)',

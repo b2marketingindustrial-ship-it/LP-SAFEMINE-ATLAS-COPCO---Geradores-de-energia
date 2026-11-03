@@ -4,13 +4,13 @@
  * Mobile: texto antes do formulário. O formulário é sempre o shortcode, nunca um <form> próprio.
  *
  * Nesta LP, o visual segue o mockup de 29/10/2026 (desvio registrado em docs/BRIEFING.md):
- * formulário dentro de um card branco, título com o produto em verde, botão de WhatsApp
+ * só o espaço do shortcode (sem card nem nota de LGPD, 03/11/2026), título com o produto em verde, botão de WhatsApp
  * verde e os 3 selos com ícone maior e divisórias. Grid, ordem e ritmo são os do padrão.
  */
+import Eyebrow from './Eyebrow.astro'
 import Button from './Button.astro'
 import Icon from './Icon.astro'
 import { quote, cta } from '../data/content'
-import { site } from '../data/site'
 
 const isDev = import.meta.env.DEV
 const [titleStart, titleEnd = ''] = quote.title.split(quote.titleHighlight)
@@ -19,10 +19,10 @@ const hasHighlight = quote.title.includes(quote.titleHighlight)
 
 <section id="cotacao" class="bg-neutral-gray-100 pt-8 pb-20">
   <div class="mx-auto max-w-page px-6 lg:px-10">
-    <div class="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-center lg:gap-16">
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-start lg:gap-16">
       {/* Coluna do formulário */}
       <div class="order-2 w-full lg:order-1">
-        <div class="min-h-[520px] w-full rounded-[1.5rem] border border-primary-dark/10 bg-neutral-light p-6 shadow-[0_30px_60px_-36px_rgba(10,29,77,0.4)] sm:p-8">
+        <div class="min-h-[400px] w-full">
           <slot name="shortcode">
             {isDev ? (
               <div
@@ -53,38 +53,13 @@ const hasHighlight = quote.title.includes(quote.titleHighlight)
             )}
           </slot>
         </div>
-
-        {/* Nota de LGPD */}
-        <p class="mt-4 font-sans text-[13px] leading-relaxed text-ink-soft/85">
-          {quote.lgpd}
-          {site.privacyUrl && (
-            <>
-              {' '}
-              <a
-                href={site.privacyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="font-semibold text-primary-dark underline-offset-2 hover:underline"
-              >
-                Política de privacidade
-              </a>
-              .
-            </>
-          )}
-        </p>
       </div>
 
       {/* Coluna de texto */}
       <div class="order-1 lg:order-2">
-        <span class="inline-flex items-center gap-4 font-sans text-[12px] font-semibold tracking-[0.2em] text-ink-soft uppercase sm:text-[13px]">
-          <span
-            class="h-[3px] w-12 shrink-0 rounded-full bg-accent-orange"
-            aria-hidden="true"
-          ></span>
-          {quote.eyebrow}
-        </span>
+        <Eyebrow>{quote.eyebrow}</Eyebrow>
 
-        <h2 class="mt-5 font-display leading-[1.06] font-extrabold tracking-[-0.025em] text-primary-dark-900 text-[1.75rem] sm:text-[2.1rem] lg:text-[2.1rem] xl:text-[2.4rem]">
+        <h2 class="mt-4 font-display leading-[1.08] font-extrabold tracking-[-0.02em] text-primary-dark-900 text-[1.75rem] sm:text-[2.1rem] lg:text-[2.1rem] xl:text-[2.4rem]">
           {hasHighlight ? (
             <Fragment>
               {titleStart}
@@ -96,7 +71,7 @@ const hasHighlight = quote.title.includes(quote.titleHighlight)
           )}
         </h2>
 
-        <p class="mt-6 font-sans text-[16px] leading-relaxed text-ink-soft sm:text-[17px] xl:text-[19px]">
+        <p class="mt-6 font-sans text-[16px] leading-relaxed text-ink-soft sm:text-[17px]">
           {quote.text}
         </p>
 
@@ -105,7 +80,7 @@ const hasHighlight = quote.title.includes(quote.titleHighlight)
           size="lg"
           iconName="whatsapp"
           iconPosition="left"
-          class="mt-7"
+          class="mt-7 w-full sm:w-auto"
         >
           {cta.whatsapp}
         </Button>
@@ -113,12 +88,15 @@ const hasHighlight = quote.title.includes(quote.titleHighlight)
         <p class="mt-5 font-sans text-[15px] text-ink-soft sm:text-[16px]">{quote.help}</p>
 
         <ul
-          class="mt-8 grid gap-5 sm:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)_minmax(0,1.25fr)] sm:gap-0"
+          class="mt-8 grid gap-4 border-t border-primary-dark/10 pt-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)_minmax(0,1.25fr)] sm:gap-0"
           aria-label="Como é o atendimento"
         >
+          {/* Ícone em badge pequeno: libera largura para o rótulo não encostar na divisória */}
           {quote.trust.map((item) => (
-            <li class="flex items-center gap-3 font-sans text-[15px] leading-snug text-ink sm:border-l sm:border-primary-dark/12 sm:px-5 sm:first:border-l-0 sm:first:pl-0 sm:last:pr-0">
-              <Icon name={item.icon} class="size-8 shrink-0 text-accent-orange" />
+            <li class="flex items-center gap-2.5 font-sans text-[14px] leading-snug font-medium text-ink sm:border-l sm:border-primary-dark/12 sm:px-4 sm:first:border-l-0 sm:first:pl-0 sm:last:pr-0">
+              <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-accent-orange/10 text-accent-orange">
+                <Icon name={item.icon} class="size-4" />
+              </span>
               <span>{item.label}</span>
             </li>
           ))}

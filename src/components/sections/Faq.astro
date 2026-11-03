@@ -1,0 +1,94 @@
+---
+/**
+ * Perguntas frequentes — biblioteca B2, fase autoridade.
+ *
+ * Duas colunas: à esquerda o cabeçalho, o CTA e a malha de pontos (fica fixo ao rolar
+ * no desktop); à direita o acordeão nativo (<details>), que funciona por teclado sem
+ * script. A pergunta aberta ganha borda verde. JSON-LD FAQPage com as mesmas perguntas.
+ *
+ * Copiado da LP SEIVE Supressão de incêndio, via LP de torres (03/11/2026, pedido do usuário), nas cores da Safe Mine.
+ */
+import Eyebrow from '@components/Eyebrow.astro'
+import Button from '@components/Button.astro'
+import Icon from '@components/Icon.astro'
+import Section from '@components/Section.astro'
+import type { SectionProps } from '@lib/layout'
+import { cta } from '@data/content'
+import { faq } from '@data/sections/perguntas'
+
+type Props = SectionProps
+
+const { tone, rhythm } = Astro.props
+
+const at = faq.title.indexOf(faq.titleHighlight)
+const before = at >= 0 ? faq.title.slice(0, at) : faq.title
+const after = at >= 0 ? faq.title.slice(at + faq.titleHighlight.length) : ''
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.items.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+}
+---
+
+<Section id="perguntas" tone={tone} rhythm={rhythm}>
+  <div class="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+    <div class="lg:sticky lg:top-28 lg:self-start">
+      <Eyebrow>{faq.eyebrow}</Eyebrow>
+      <h2 class="mt-4 font-display text-[1.75rem] leading-[1.08] font-extrabold tracking-[-0.02em] text-primary-dark-900 sm:text-[2.1rem] lg:text-[2.1rem] xl:text-[2.4rem]">
+        {before}
+        {at >= 0 && <span class="text-accent-orange">{faq.titleHighlight}</span>}
+        {after}
+      </h2>
+      <p class="mt-5 max-w-[28rem] font-sans text-[16px] leading-relaxed text-ink-soft sm:text-[17px]">
+        {faq.text}
+      </p>
+
+      <div class="faq-cta relative mt-8 overflow-hidden rounded-2xl border border-primary-dark/10 bg-neutral-light p-6">
+        <div class="relative flex items-center gap-4">
+          <span class="flex size-11 shrink-0 items-center justify-center rounded-full bg-accent-orange/10 text-accent-orange">
+            <Icon name="chat" class="size-5" />
+          </span>
+          <p class="font-display text-[16px] leading-snug font-extrabold text-primary-dark-900">
+            Ficou alguma dúvida sobre a sua aplicação?
+          </p>
+        </div>
+        <Button cta="perguntas-cta" size="md" class="relative mt-5 w-full sm:w-auto">
+          {cta.card}
+        </Button>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      {faq.items.map((item) => (
+        <details class="faq-item group rounded-2xl border border-primary-dark/10 bg-neutral-light transition-[border-color,box-shadow] duration-300 open:border-accent-orange/60 open:shadow-[0_24px_48px_-30px_rgb(10_29_77/0.35)] motion-reduce:transition-none">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-5 px-5 py-5 font-display text-[1.05rem] leading-snug font-extrabold text-primary-dark-900 transition-colors duration-200 hover:text-accent-orange-dark motion-reduce:transition-none sm:px-6 sm:text-[1.1rem]">
+            {item.question}
+            <span class="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary-dark/[0.06] text-primary-dark-900 transition-[background-color,color,transform] duration-300 group-open:rotate-45 group-open:bg-accent-orange group-open:text-neutral-light motion-reduce:transition-none">
+              <Icon name="close" class="size-4 rotate-45" />
+            </span>
+          </summary>
+          <p class="max-w-[60ch] px-5 pb-6 font-sans sm:px-6 text-[15px] leading-relaxed text-ink-soft">
+            {item.answer}
+          </p>
+        </details>
+      ))}
+    </div>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+</Section>
+
+<style>
+  .faq-cta {
+    box-shadow: 0 24px 48px -30px rgb(10 29 77 / 0.35);
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

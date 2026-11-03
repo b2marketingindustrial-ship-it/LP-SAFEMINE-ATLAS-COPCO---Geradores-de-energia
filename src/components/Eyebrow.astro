@@ -1,22 +1,27 @@
 ---
+/**
+ * Rótulo acima do título de seção. Fonte única do estilo em toda a página (03/11/2026):
+ * traço verde de 36px, 12/13px, semibold, caixa-alta, tracking 0.18em.
+ * `tone="light"` sobre fundos escuros (navy e verde): texto claro e traço no verde da marca.
+ */
 interface Props {
   tone?: 'light' | 'dark'
-  marker?: boolean
   class?: string
 }
 
-const { tone = 'dark', marker = true, class: className = '' } = Astro.props
+const { tone = 'dark', class: className = '' } = Astro.props
 
-const toneClasses = tone === 'light' ? 'text-neutral-light/70' : 'text-ink-soft'
+const textClass = tone === 'light' ? 'text-neutral-light/75' : 'text-ink-soft'
+const ruleClass = tone === 'light' ? 'bg-accent-orange-light' : 'bg-accent-orange'
 ---
 
 <span
-  class={`
-    inline-flex items-center gap-2.5
-    font-sans text-[12px] font-semibold uppercase tracking-[0.16em]
-    ${toneClasses} ${className}
-  `}
+  class:list={[
+    'inline-flex items-center gap-4 font-sans text-[12px] font-semibold tracking-[0.18em] uppercase sm:text-[13px]',
+    textClass,
+    className,
+  ]}
 >
-  {marker && <span class="h-[6px] w-[6px] bg-accent-orange" />}
+  <span class:list={['h-[3px] w-9 shrink-0 rounded-full', ruleClass]} aria-hidden="true"></span>
   <slot />
 </span>
