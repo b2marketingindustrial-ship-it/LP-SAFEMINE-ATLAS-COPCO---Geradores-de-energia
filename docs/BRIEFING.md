@@ -76,7 +76,7 @@ Pendências em `docs/FICHA-LP.md`. Na Vercel não há o plugin de atendimento: o
 
 Em 03/11/2026, a pedido do usuário, a página passou a seguir a LP de torres de iluminação da Safe Mine (repositório `LP-SAFEMINE-ATLAS-COPCO---Torre-de-ilumina-o`, commits `4f509dc` e `2de3413`): mesma estética, header, hero, estrutura e seções. Os componentes foram copiados de lá; o conteúdo é o de geradores.
 
-- **Header:** barra branca sticky da LP SEIVE Lubrificação, como na LP de torres: filete da marca no topo, logos Safe Mine e Atlas Copco lado a lado separadas por um filete, tagline central com selo, CTA, sombra só ao rolar. Sem menu (regra 1). A logo da Atlas Copco é a do Wikimedia Commons (`src/assets/atlas-copco-logo.png`), a trocar pela oficial se chegar. Assinatura A8 do `check-lp.mjs` repinada.
+- **Header:** barra branca sticky da LP SEIVE Lubrificação, como na LP de torres: filete da marca no topo, logos Safe Mine e Atlas Copco lado a lado separadas por um filete, tagline central com selo, CTA, sombra só ao rolar. Sem menu (regra 1). A logo da Atlas Copco é a versão "Authorized Distributor" enviada pelo usuário em 06/11/2026 (`src/assets/atlas-copco-distribuidor.png`). Assinatura A8 do `check-lp.mjs` repinada.
 - **Hero:** estrutura fixa 4.1.2 mantida. Texto limitado a 36rem no desktop e botões em largura total no celular.
 - **Linhas:** produto sobre palco com a etiqueta no canto, motor em badge e a linha "Indicado para" em cada card. A foto preenche o palco com `object-cover` (sem recorte no material), em vez do `object-contain` com multiply da LP de torres. A faixa "Não sabe qual gerador escolher?" saiu por repetir o painel `identificar`.
 - **Identificar:** dados em dois grupos paralelos (Essencial / Se souber).

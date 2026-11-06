@@ -7,13 +7,13 @@
  * página (regra 1). Registrado em docs/BRIEFING.md (Desvios do padrão).
  *
  * Logos Safe Mine (anunciante) e Atlas Copco (fabricante), nessa ordem, separadas por um
- * filete (pedido do usuário, 03/11/2026). A da Atlas Copco é
- * a do Wikimedia Commons (Atlas-Copco-Logo.svg, em PNG de 960 px): trocar pela oficial se chegar.
+ * filete (pedido do usuário, 03/11/2026). A da Atlas Copco é a versão "Authorized Distributor"
+ * enviada pelo usuário em 06/11/2026 (PNG de 267 × 161, fundo branco, margens recortadas).
  */
 import Button from './Button.astro'
 import Icon from './Icon.astro'
 import { Image } from 'astro:assets'
-import atlasLogo from '../assets/atlas-copco-logo.png'
+import atlasLogo from '../assets/atlas-copco-distribuidor.png'
 import logo from '../assets/marca-safe-mine.png'
 import { header, cta } from '../data/content'
 ---
@@ -39,13 +39,13 @@ import { header, cta } from '../data/content'
       <span aria-hidden="true" class="h-[28px] w-px shrink-0 bg-primary-dark/15 sm:h-10"></span>
       <Image
         src={atlasLogo}
-        alt="Atlas Copco"
-        width={200}
+        alt="Atlas Copco Authorized Distributor"
+        width={267}
         format="webp"
         loading="eager"
         fetchpriority="low"
         decoding="async"
-        class="h-[28px] w-auto sm:h-[46px]"
+        class="h-[34px] w-auto sm:h-[56px]"
       />
     </a>
 
